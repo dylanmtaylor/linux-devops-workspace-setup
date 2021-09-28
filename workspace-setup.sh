@@ -10,6 +10,7 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 sudo yum -y install chromium gimp filezilla docker meld neofetch htop code terraform packer vault vagrant consul nomad boundary waypoint ansible remmina wireshark-gnome go powershell python-pip nano
 wget https://release.gitkraken.com/linux/gitkraken-amd64.rpm
 sudo yum install ./gitkraken-amd64.rpm
+sudo gpasswd -a "$USER" docker
 sudo systemctl enable --now docker
 curl https://intoli.com/install-google-chrome.sh | sudo bash
 sudo yum -y install rubygems ruby-devel rubygem-rspec gcc gcc-c++
