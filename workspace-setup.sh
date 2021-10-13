@@ -18,7 +18,6 @@ gem install serverspec
 curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm" -o "session-manager-plugin.rpm"
 sudo yum install -y session-manager-plugin.rpm
 sudo yum group install "Development Tools" -y
-sudo yum install https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm -y
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # This replaces the AWS client with a newer version
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -27,3 +26,6 @@ sudo ./aws/install
 sudo rm /usr/bin/aws || true
 rm awscliv2.zip
 aws --version
+sudo yum -y install flatpak
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak install flathub io.dbeaver.DBeaverCommunity -y
