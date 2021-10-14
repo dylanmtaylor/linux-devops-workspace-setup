@@ -51,3 +51,7 @@ sudo flatpak install flathub org.libreoffice.LibreOffice -y
 sudo yum -y remove Firefox
 sudo flatpak install flathub org.mozilla.firefox -y
 sudo flatpak update -y
+sudo yum -y install yum-cron
+sudo sed -i 's|^apply_updates = no|apply_updates = yes|' /etc/yum/yum-cron.conf
+sudo sed -i 's|^random_sleep = 360|random_sleep = 0|' /etc/yum/yum-cron.conf
+sudo systemctl enable --now yum-cron.service
