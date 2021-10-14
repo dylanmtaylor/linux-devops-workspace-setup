@@ -34,6 +34,8 @@ sudo flatpak install flathub io.dbeaver.DBeaverCommunity -y
 sudo flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community -y
 sudo flatpak install flathub com.jetbrains.PyCharm-Community -y
 sudo flatpak install flathub io.atom.Atom -y
+sudo flatpak install flathub org.gnome.GHex -y
+sudo flatpak install flathub org.kde.okteta -y
 sudo flatpak install flathub org.filezillaproject.Filezilla -y
 sudo flatpak install flathub org.gnome.meld -y
 sudo flatpak install flathub org.videolan.VLC -y
