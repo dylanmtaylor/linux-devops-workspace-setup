@@ -31,6 +31,8 @@ sudo yum -y install flatpak
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sudo flatpak install flathub com.microsoft.Teams -y
 sudo flatpak install flathub io.dbeaver.DBeaverCommunity -y
+sudo flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community -y
+sudo flatpak install flathub com.jetbrains.PyCharm-Community -y
 sudo flatpak install flathub org.filezillaproject.Filezilla -y
 sudo flatpak install flathub org.gnome.meld -y
 sudo flatpak install flathub org.videolan.VLC -y
