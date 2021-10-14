@@ -7,7 +7,7 @@ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
 curl https://packages.microsoft.com/config/rhel/7/prod.repo | sudo tee /etc/yum.repos.d/microsoft.repo
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo yum -y install chromium filezilla docker meld neofetch htop code terraform packer vault vagrant consul nomad boundary waypoint ansible remmina wireshark-gnome go powershell python-pip nano neovim
+sudo yum -y install chromium docker neofetch htop code terraform packer vault vagrant consul nomad boundary waypoint ansible remmina wireshark-gnome go powershell python-pip nano neovim
 wget https://release.gitkraken.com/linux/gitkraken-amd64.rpm
 sudo yum install ./gitkraken-amd64.rpm
 sudo gpasswd -a "$USER" docker
@@ -31,7 +31,11 @@ sudo yum -y install flatpak
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sudo flatpak install flathub com.microsoft.Teams -y
 sudo flatpak install flathub io.dbeaver.DBeaverCommunity -y
+sudo flatpak install flathub org.filezillaproject.Filezilla -y
+sudo flatpak install flathub org.gnome.meld -y
 sudo flatpak install flathub org.videolan.VLC -y
+sudo flatpak install flathub com.github.PintaProject.Pinta -y
+sudo flatpak install flathub org.inkscape.Inkscape -y
 # Replace GIMP with Flatpak version
 sudo yum -y remove gimp
 sudo flatpak install flathub org.gimp.GIMP -y
