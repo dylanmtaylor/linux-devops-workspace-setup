@@ -47,3 +47,4 @@ sudo flatpak install flathub org.libreoffice.LibreOffice -y
 # Replace bundled Firefox with Flatpak version
 sudo yum -y remove Firefox
 sudo flatpak install flathub org.mozilla.firefox -y
+sudo flatpak update -y
