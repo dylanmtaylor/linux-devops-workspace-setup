@@ -2,6 +2,7 @@
 ## Tested on Standard Amazon Linux 2 Workspace
 sudo amazon-linux-extras install epel kernel-ng ruby3.0 python3.8 java-openjdk11 mono php8.0
 sudo yum -y update
+curl -fsSL https://rpm.nodesource.com/setup_current.x | sudo bash -
 sudo yum -y install nodejs npm
 sudo yum -y install php-xml php-gd php-posix
 sudo curl -o /etc/yum.repos.d/konimex-neofetch-epel-7.repo https://copr.fedorainfracloud.org/coprs/konimex/neofetch/repo/epel-7/konimex-neofetch-epel-7.repo
