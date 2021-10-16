@@ -11,7 +11,7 @@ sudo yum -y install chromium docker neofetch htop code terraform packer vault va
 sudo rpm -vhU https://nmap.org/dist/nmap-7.92-1.x86_64.rpm
 sudo rpm -vhU https://nmap.org/dist/zenmap-7.92-1.noarch.rpm
 sudo rpm -vhU https://nmap.org/dist/ncat-7.92-1.x86_64.rpm
-rpm -vhU https://nmap.org/dist/nping-0.7.92-1.x86_64.rpm
+sudo rpm -vhU https://nmap.org/dist/nping-0.7.92-1.x86_64.rpm
 wget https://release.gitkraken.com/linux/gitkraken-amd64.rpm
 sudo yum install ./gitkraken-amd64.rpm
 sudo gpasswd -a "$USER" docker
