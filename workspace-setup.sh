@@ -2,6 +2,7 @@
 ## Tested on Standard Amazon Linux 2 Workspace
 sudo amazon-linux-extras install epel kernel-ng ruby3.0 python3.8 java-openjdk11 mono
 sudo yum -y update
+sudo yum -y install php-cli php-xml
 sudo curl -o /etc/yum.repos.d/konimex-neofetch-epel-7.repo https://copr.fedorainfracloud.org/coprs/konimex/neofetch/repo/epel-7/konimex-neofetch-epel-7.repo
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
