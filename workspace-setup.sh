@@ -15,14 +15,13 @@ sudo rpm -vhU https://nmap.org/dist/nmap-7.92-1.x86_64.rpm
 sudo rpm -vhU https://nmap.org/dist/zenmap-7.92-1.noarch.rpm
 sudo rpm -vhU https://nmap.org/dist/ncat-7.92-1.x86_64.rpm
 sudo rpm -vhU https://nmap.org/dist/nping-0.7.92-1.x86_64.rpm
-wget https://release.gitkraken.com/linux/gitkraken-amd64.rpm
-sudo yum install ./gitkraken-amd64.rpm
+sudo rpm -vhU  https://release.gitkraken.com/linux/gitkraken-amd64.rpm
 sudo gpasswd -a "$USER" docker
 sudo systemctl enable --now docker
 curl https://intoli.com/install-google-chrome.sh | sudo bash
 sudo yum -y install rubygems ruby-devel rubygem-rspec gcc gcc-c++
 gem install serverspec
-curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm" -o "session-manager-plugin.rpm"
+sudo rpm -vhU https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm
 sudo yum install -y session-manager-plugin.rpm
 sudo yum group install "Development Tools" -y
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -32,6 +31,7 @@ unzip awscliv2.zip
 sudo ./aws/install
 sudo rm /usr/bin/aws || true
 rm awscliv2.zip
+rm -rf ./aws
 aws --version
 sudo yum -y install flatpak
 # Add Flathub so packages can be installed from there
