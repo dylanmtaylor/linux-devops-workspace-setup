@@ -22,7 +22,6 @@ curl https://intoli.com/install-google-chrome.sh | sudo bash
 sudo yum -y install rubygems ruby-devel rubygem-rspec gcc gcc-c++
 gem install serverspec
 sudo rpm -vhU https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm
-sudo yum install -y session-manager-plugin.rpm
 sudo yum group install "Development Tools" -y
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # This replaces the AWS client with a newer version
