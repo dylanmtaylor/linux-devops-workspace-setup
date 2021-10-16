@@ -7,7 +7,7 @@ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
 curl https://packages.microsoft.com/config/rhel/7/prod.repo | sudo tee /etc/yum.repos.d/microsoft.repo
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo yum -y install chromium docker neofetch htop code terraform packer vault vagrant consul nomad boundary waypoint ansible remmina wireshark-gnome go powershell python-pip nano neovim texlive asciidoc certbot fio glances iftop ioping iotop iptraf-ng lshw nmon pngcrush pv setools tcpdump telnet
+sudo yum -y install chromium docker neofetch htop code terraform packer vault vagrant consul nomad boundary waypoint ansible remmina wireshark-gnome go powershell python-pip nano neovim texlive asciidoc certbot fio glances iftop ioping iotop iptraf-ng lshw nmon pngcrush pv setools tcpdump telnet whois
 wget https://release.gitkraken.com/linux/gitkraken-amd64.rpm
 sudo yum install ./gitkraken-amd64.rpm
 sudo gpasswd -a "$USER" docker
