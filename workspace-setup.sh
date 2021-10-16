@@ -38,6 +38,7 @@ sudo yum -y install flatpak
 # Add Flathub so packages can be installed from there
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sudo flatpak install flathub com.microsoft.Teams -y
+sudo flatpak install flathub com.slack.Slack -y
 sudo flatpak install flathub io.dbeaver.DBeaverCommunity -y
 sudo flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community -y
 sudo flatpak install flathub com.jetbrains.PyCharm-Community -y
@@ -50,6 +51,7 @@ sudo flatpak install flathub org.videolan.VLC -y
 sudo flatpak install flathub com.github.PintaProject.Pinta -y
 sudo flatpak install flathub org.inkscape.Inkscape -y
 sudo flatpak install flathub com.getpostman.Postman -y
+sudo flatpak install flathub com.obsproject.Studio -y
 # Replace GIMP with Flatpak version
 sudo yum -y remove gimp
 sudo flatpak install flathub org.gimp.GIMP -y
