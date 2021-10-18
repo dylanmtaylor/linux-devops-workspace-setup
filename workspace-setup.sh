@@ -66,3 +66,6 @@ sudo yum -y install yum-cron
 sudo sed -i 's|^apply_updates = no|apply_updates = yes|' /etc/yum/yum-cron.conf
 sudo sed -i 's|^random_sleep = 360|random_sleep = 0|' /etc/yum/yum-cron.conf
 sudo systemctl enable --now yum-cron.service
+wget https://www.yworks.com/resources/yed/demo/yEd-3.21.1_with-JRE15_64-bit_setup.sh
+sudo bash yEd-3.21.1_with-JRE15_64-bit_setup.sh
+rm yEd-3.21.1_with-JRE15_64-bit_setup.sh
