@@ -52,6 +52,7 @@ sudo flatpak install flathub com.github.PintaProject.Pinta -y
 sudo flatpak install flathub org.inkscape.Inkscape -y
 sudo flatpak install flathub com.getpostman.Postman -y
 sudo flatpak install flathub com.obsproject.Studio -y
+sudo flatpak install flathub com.github.tchx84.Flatseal -y
 # Replace GIMP with Flatpak version
 sudo yum -y remove gimp
 sudo flatpak install flathub org.gimp.GIMP -y
