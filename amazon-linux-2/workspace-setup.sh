@@ -12,7 +12,7 @@ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
 curl https://packages.microsoft.com/config/rhel/7/prod.repo | sudo tee /etc/yum.repos.d/microsoft.repo
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo yum -y install chromium docker neofetch htop code terraform packer vault vagrant consul nomad boundary waypoint ansible remmina wireshark-gnome go powershell python-pip nano neovim texlive asciidoc certbot fio glances iftop ioping iotop iptraf-ng lshw nmon pngcrush pv setools tcpdump telnet whois xterm
+sudo yum -y install chromium docker neofetch htop code  ansible remmina wireshark-gnome go powershell python-pip nano neovim texlive asciidoc certbot fio glances iftop ioping iotop iptraf-ng lshw nmon pngcrush pv setools tcpdump telnet whois xterm
 sudo rpm -vhU https://nmap.org/dist/nmap-7.92-1.x86_64.rpm
 sudo rpm -vhU https://nmap.org/dist/zenmap-7.92-1.noarch.rpm
 sudo rpm -vhU https://nmap.org/dist/ncat-7.92-1.x86_64.rpm
@@ -37,12 +37,10 @@ aws --version
 sudo yum -y install flatpak
 # Add Flathub so packages can be installed from there
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-sudo flatpak install flathub com.microsoft.Teams -y
 sudo flatpak install flathub com.slack.Slack -y
 sudo flatpak install flathub io.dbeaver.DBeaverCommunity -y
 sudo flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community -y
 sudo flatpak install flathub com.jetbrains.PyCharm-Community -y
-sudo flatpak install flathub io.atom.Atom -y
 sudo flatpak install flathub org.gnome.GHex -y
 sudo flatpak install flathub org.kde.okteta -y
 sudo flatpak install flathub org.filezillaproject.Filezilla -y
