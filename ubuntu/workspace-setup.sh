@@ -15,7 +15,7 @@ sudo apt update && sudo apt -y install code
 # Hashicorp Tools
 wget --quiet --output-document - https://apt.releases.hashicorp.com/gpg | \ sudo gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/hashicorp-archive-keyring.gpg --import
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-sudo apt update && sudo apt -y install terraform packer vault vagrant consul nomad boundary waypoint
+sudo apt update && sudo apt -y install boundary consul consul-esm consul-k8s consul-template consul-terraform-sync nomad nomad-autoscaler packer terraform terraform-ls vagrant vault waypoint
 
 # Oh My ZSH
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
