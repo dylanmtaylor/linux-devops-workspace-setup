@@ -46,6 +46,10 @@ sudo apt -y install krita gimp inkscape pinta vlc obs-studio shutter
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo apt -y install openjdk-11-jdk nodejs cargo yarn maven ansible golang python3-pip neovim 
 
+# JetBrains community IDEs
+sudo snap install pycharm-community --classic
+sudo snap install intellij-idea-community --classic --edge
+
 # Topgrade for easy system upgrades
 cargo install topgrade
 
