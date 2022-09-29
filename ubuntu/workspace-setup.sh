@@ -38,7 +38,7 @@ sudo snap install postman
 sudo apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk tcpdump filezilla ghex
 
 # Image editing and media
-sudo apt -y install krita gimp inkscape pinta vlc obs-studio
+sudo apt -y install krita gimp inkscape pinta vlc obs-studio shutter
 
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo apt -y install openjdk-11-jdk nodejs cargo yarn maven ansible powershell go python3-pip neovim 
