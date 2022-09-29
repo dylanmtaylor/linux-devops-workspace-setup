@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Google Chrome
+# Google Chrome (and some various packages that are dependencies)
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt -y install ./google-chrome-stable_current_amd64.deb unzip p7zip-full curl wget gpg flatpak build-essential
+sudo apt -y install ./google-chrome-stable_current_amd64.deb unzip p7zip-full curl wget gpg flatpak build-essential zsh
 rm -f ./google-chrome-stable_current_amd64.deb
 
 # VS Code
