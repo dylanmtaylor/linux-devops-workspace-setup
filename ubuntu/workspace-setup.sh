@@ -34,6 +34,9 @@ sudo snap install dbeaver-ce
 # Postman
 sudo snap install postman
 
+# PowerShell
+sudo snap install powershell --classic
+
 # Various networking and monitoring tools
 sudo apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk tcpdump filezilla ghex
 
@@ -41,7 +44,7 @@ sudo apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk tcpd
 sudo apt -y install krita gimp inkscape pinta vlc obs-studio shutter
 
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
-sudo apt -y install openjdk-11-jdk nodejs cargo yarn maven ansible powershell go python3-pip neovim 
+sudo apt -y install openjdk-11-jdk nodejs cargo yarn maven ansible golang python3-pip neovim 
 
 # Topgrade for easy system upgrades
 cargo install topgrade
