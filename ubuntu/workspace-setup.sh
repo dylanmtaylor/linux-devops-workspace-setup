@@ -74,6 +74,7 @@ wget https://download.oracle.com/otn_software/linux/instantclient/217000/oracle-
 sudo alien -i *.rpm
 rm -f oracle*.rpm
 sudo sh -c  'echo /usr/lib/oracle/21/client64/lib/ > /etc/ld.so.conf.d/oracle.conf'
+sudo ldconfig
 
 # Topgrade for easy system upgrades
 cargo install topgrade
