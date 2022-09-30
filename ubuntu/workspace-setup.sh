@@ -71,6 +71,9 @@ sudo flatpak install flathub io.github.peazip.PeaZip -y
 # Bottles
 sudo flatpak install flathub com.usebottles.bottles -y
 
+# Zenmap
+sudo flatpak install flathub org.nmap.Zenmap -y
+
 # Oh My ZSH
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
