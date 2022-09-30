@@ -29,7 +29,6 @@ sudo -E apt -y install krita gimp inkscape pinta vlc obs-studio shutter
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo -E apt -y install openjdk-11-jdk nodejs cargo yarn maven ansible golang python3-pip neovim 
 
-
 # GitKraken
 sudo -E snap install gitkraken --classic
 
@@ -45,6 +44,9 @@ sudo -E snap install powershell --classic
 # JetBrains community IDEs
 sudo -E snap install pycharm-community --classic
 sudo -E snap install intellij-idea-community --classic --edge
+
+# Eclipse
+sudo snap install eclipse --classic
 
 # Oh My ZSH
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
