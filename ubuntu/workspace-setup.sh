@@ -7,7 +7,7 @@ export DEBIAN_PRIORITY=critical
 
 # Do a system upgrade and install some pre-reqs
 sudo -E apt update && sudo -E apt -y full-upgrade
-sudo -E apt -y install unzip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak build-essential zsh
+sudo -E apt -y install unzip p7zip-full curl chrome-gnome-shell wget gpg flatpak gnome-software-plugin-flatpak build-essential zsh
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Google Chrome (and some various packages that are dependencies)
