@@ -94,3 +94,4 @@ sudo ldconfig
 
 # Topgrade for easy system upgrades
 cargo install topgrade
+sed -i '/export PATH/c\export PATH=\$PATH:/home/$USER/.cargo/bin/' ~/.zshrc
