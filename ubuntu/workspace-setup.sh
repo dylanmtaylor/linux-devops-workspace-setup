@@ -65,6 +65,9 @@ sudo -E snap install intellij-idea-community --classic --edge
 # Eclipse
 sudo snap install eclipse --classic
 
+# PeaZip
+sudo flatpak install flathub io.github.peazip.PeaZip -y
+
 # Bottles
 sudo flatpak install flathub com.usebottles.bottles -y
 
