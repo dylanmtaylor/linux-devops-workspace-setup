@@ -7,7 +7,8 @@ export DEBIAN_PRIORITY=critical
 
 # Do a system upgrade and install some pre-reqs
 sudo -E apt update && sudo -E apt -y full-upgrade
-sudo -E apt -y install unzip p7zip-full curl wget gpg flatpak build-essential zsh
+sudo -E apt -y install unzip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak build-essential zsh
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Google Chrome (and some various packages that are dependencies)
 if ! command -v docker &> /dev/null
@@ -63,6 +64,9 @@ sudo -E snap install intellij-idea-community --classic --edge
 
 # Eclipse
 sudo snap install eclipse --classic
+
+# Bottles
+flatpak install flathub com.usebottles.bottles -y
 
 # Oh My ZSH
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
