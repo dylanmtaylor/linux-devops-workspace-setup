@@ -7,8 +7,11 @@ export DEBIAN_PRIORITY=critical
 
 # Do a system upgrade and install some pre-reqs
 sudo -E apt update && sudo -E apt -y full-upgrade
-sudo -E apt -y install unzip p7zip-full curl chrome-gnome-shell wget gpg flatpak gnome-software-plugin-flatpak build-essential zsh
+sudo -E apt -y install unzip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak build-essential zsh
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# GNOME Packages
+sudo -E apt -y install chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager
 
 # Google Chrome (and some various packages that are dependencies)
 if ! command -v docker &> /dev/null
@@ -120,3 +123,8 @@ rm -f ./jd-gui-1.6.6.deb
 # Topgrade for easy system upgrades
 cargo install topgrade
 sed -i '/export PATH/c\export PATH=\$PATH:/home/$(whoami)/.cargo/bin/' ~/.zshrc 
+
+# Make app grid alphabetical initially
+gsettings set org.gnome.shell app-picker-layout "[]"
+
+echo "Done. A reboot is required."
