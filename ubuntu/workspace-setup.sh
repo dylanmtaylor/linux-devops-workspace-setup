@@ -86,8 +86,9 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 if ! command -v docker &> /dev/null
 then
     curl -fsSL https://get.docker.com | bash
-    sudo -E usermod -aG docker $USER
+    sudo -E usermod -aG docker $(whoami)
     sudo -E systemctl enable --now docker
+    sudo chown $(whoami) /var/run/docker.sock # This is not very secure, but it's the only way I've found to get this working with a domain user.
 fi
 
 # Hashicorp Tools
@@ -114,4 +115,4 @@ rm -f ./jd-gui-1.6.6.deb
 
 # Topgrade for easy system upgrades
 cargo install topgrade
-sed -i '/export PATH/c\export PATH=\$PATH:/home/$USER/.cargo/bin/' ~/.zshrc
+sed -i '/export PATH/c\export PATH=\$PATH:/home/$(whoami)/.cargo/bin/' ~/.zshrc 
