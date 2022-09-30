@@ -32,7 +32,7 @@ sudo -E apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk t
 sudo -E apt -y install krita gimp inkscape pinta vlc obs-studio shutter
 
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
-sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec 
+sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
 
 # AWS Session Manager and AWS Nuke
 curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
