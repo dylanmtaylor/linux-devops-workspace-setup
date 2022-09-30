@@ -5,13 +5,17 @@ export NEEDRESTART_MODE=a
 export NEEDRESTART_SUSPEND=true
 export DEBIAN_PRIORITY=critical
 
-# Do a system upgrade
+# Do a system upgrade and install some pre-reqs
 sudo -E apt update && sudo -E apt -y full-upgrade
+sudo -E apt -y install unzip p7zip-full curl wget gpg flatpak build-essential zsh
 
 # Google Chrome (and some various packages that are dependencies)
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo -E apt update && sudo -E apt -y install ./google-chrome-stable_current_amd64.deb unzip p7zip-full curl wget gpg flatpak build-essential zsh
-rm -f ./google-chrome-stable_current_amd64.deb
+if ! command -v docker &> /dev/null
+then
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo -E apt update && sudo -E apt -y install ./google-chrome-stable_current_amd64.deb 
+    rm -f ./google-chrome-stable_current_amd64.deb
+fi
 
 # VS Code
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
@@ -46,6 +50,12 @@ sudo -E snap install postman
 
 # PowerShell
 sudo -E snap install powershell --classic
+
+# Helm
+sudo snap install helm --classic
+
+# Kubectl
+sudo -E snap install kubectl --classic
 
 # JetBrains community IDEs
 sudo -E snap install pycharm-community --classic
