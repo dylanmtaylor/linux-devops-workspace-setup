@@ -50,14 +50,19 @@ sudo -E snap install intellij-idea-community --classic --edge
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Docker
-curl -fsSL https://get.docker.com | bash
-sudo -E usermod -aG docker $USER
-sudo -E systemctl enable --now docker
+if ! command -v docker &> /dev/null
+then
+    curl -fsSL https://get.docker.com | bash
+    sudo -E usermod -aG docker $USER
+    sudo -E systemctl enable --now docker
+fi
 
 # Hashicorp Tools
 wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo -E tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo -E tee /etc/apt/sources.list.d/hashicorp.list
 sudo -E apt update && sudo -E apt -y install boundary consul consul-esm consul-k8s consul-template consul-terraform-sync nomad nomad-autoscaler packer terraform terraform-ls vagrant vault waypoint
+
+
 
 # Topgrade for easy system upgrades
 cargo install topgrade
