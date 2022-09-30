@@ -29,7 +29,7 @@ sudo -E apt update && sudo -E apt -y install code
 sudo -E apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk tcpdump filezilla ghex
 
 # Image editing and media
-sudo -E apt -y install krita gimp inkscape pinta vlc obs-studio shutter
+sudo -E apt -y install krita gimp inkscape pinta vlc obs-studio shutter audacity
 
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
@@ -101,6 +101,11 @@ sudo alien -i *.rpm
 rm -f oracle*.rpm
 sudo sh -c  'echo /usr/lib/oracle/21/client64/lib/ > /etc/ld.so.conf.d/oracle.conf'
 sudo ldconfig
+
+# JD GUI
+wget https://github.com/java-decompiler/jd-gui/releases/download/v1.6.6/jd-gui-1.6.6.deb
+sudo apt install ./jd-gui-1.6.6.deb -y
+rm -f ./jd-gui-1.6.6.deb
 
 # Topgrade for easy system upgrades
 cargo install topgrade
