@@ -31,6 +31,11 @@ sudo -E apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk t
 # Image editing and media
 sudo -E apt -y install krita gimp inkscape pinta vlc obs-studio shutter audacity
 
+# Peek screen recorder
+sudo -E add-apt-repository ppa:peek-developers/stable -y
+sudo -E apt update
+sudo -E apt install peek -y
+
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
 
@@ -53,7 +58,7 @@ sudo -E snap install postman
 sudo -E snap install powershell --classic
 
 # Helm
-sudo snap install helm --classic
+sudo -E snap install helm --classic
 
 # Kubectl
 sudo -E snap install kubectl --classic
@@ -63,16 +68,16 @@ sudo -E snap install pycharm-community --classic
 sudo -E snap install intellij-idea-community --classic --edge
 
 # Eclipse
-sudo snap install eclipse --classic
+sudo -E snap install eclipse --classic
 
 # PeaZip
-sudo flatpak install flathub io.github.peazip.PeaZip -y
+sudo -E flatpak install flathub io.github.peazip.PeaZip -y
 
 # Bottles
-sudo flatpak install flathub com.usebottles.bottles -y
+sudo -E flatpak install flathub com.usebottles.bottles -y
 
 # Zenmap
-sudo flatpak install flathub org.nmap.Zenmap -y
+sudo -E flatpak install flathub org.nmap.Zenmap -y
 
 # Oh My ZSH
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -104,7 +109,7 @@ sudo ldconfig
 
 # JD GUI
 wget https://github.com/java-decompiler/jd-gui/releases/download/v1.6.6/jd-gui-1.6.6.deb
-sudo apt install ./jd-gui-1.6.6.deb -y
+sudo -E apt install ./jd-gui-1.6.6.deb -y
 rm -f ./jd-gui-1.6.6.deb
 
 # Topgrade for easy system upgrades
