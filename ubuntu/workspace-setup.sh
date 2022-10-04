@@ -10,6 +10,9 @@ sudo -E apt update && sudo -E apt -y full-upgrade
 sudo -E apt -y install unzip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak build-essential zsh
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+# Run Flatpak updates if any are available
+sudo -E flatpak update -y
+
 # GNOME Packages
 sudo -E apt -y install chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager
 
@@ -74,6 +77,9 @@ sudo -E snap install intellij-idea-community --classic --edge
 # Eclipse
 sudo -E snap install eclipse --classic
 
+# Flatseal
+sudo -E flatpak install flathub com.github.tchx84.Flatseal -y
+
 # PeaZip
 sudo -E flatpak install flathub io.github.peazip.PeaZip -y
 
@@ -85,6 +91,9 @@ sudo -E flatpak install flathub org.nmap.Zenmap -y
 
 # Microsoft Edge (for compatibility testing)
 sudo -E flatpak install flathub com.microsoft.Edge -y
+
+# Okteta
+sudo -E flatpak install flathub org.kde.okteta -y
 
 # This replaces the AWS client with a newer version
 sudo -E apt remove -y awscli
