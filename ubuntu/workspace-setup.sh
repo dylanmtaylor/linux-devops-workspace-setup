@@ -41,6 +41,7 @@ sudo -E apt install peek -y
 
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
+sudo -E gem install webdrivers rails
 
 # AWS Session Manager and AWS Nuke
 curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
@@ -81,6 +82,9 @@ sudo -E flatpak install flathub com.usebottles.bottles -y
 
 # Zenmap
 sudo -E flatpak install flathub org.nmap.Zenmap -y
+
+# Microsoft Edge (for compatibility testing)
+sudo -E flatpak install flathub com.microsoft.Edge -y
 
 # This replaces the AWS client with a newer version
 sudo -E apt remove -y awscli
@@ -128,6 +132,10 @@ sudo ldconfig
 wget https://github.com/java-decompiler/jd-gui/releases/download/v1.6.6/jd-gui-1.6.6.deb
 sudo -E apt install ./jd-gui-1.6.6.deb -y
 rm -f ./jd-gui-1.6.6.deb
+
+# Speedtest CLI
+curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo -E bash
+sudo -E apt-get -y install speedtest
 
 # Topgrade for easy system upgrades
 cargo install topgrade
