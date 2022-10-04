@@ -154,4 +154,15 @@ sed -i '/export PATH/c\export PATH=\$PATH:/home/$(whoami)/.cargo/bin/' ~/.zshrc
 # Make app grid alphabetical initially
 gsettings set org.gnome.shell app-picker-layout "[]"
 
+# GNOME Extension Installer Script
+wget -O gnome-shell-extension-installer "https://github.com/brunelli/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
+chmod +x gnome-shell-extension-installer
+sudo -E mv gnome-shell-extension-installer /usr/bin/
+
+# GNOME Extensions I Like
+gnome-shell-extension-installer 4269 # Alphabetical App Grid
+gnome-shell-extension-installer 3628 # ArcMenu
+gnome-shell-extension-installer 517  # Caffeine
+gnome-shell-extension-installer 1160 # Dash to Panel
+
 echo "Done. A reboot is required."
