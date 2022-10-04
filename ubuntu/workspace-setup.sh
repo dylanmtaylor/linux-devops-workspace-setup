@@ -32,7 +32,7 @@ rm -f packages.microsoft.gpg
 sudo -E apt update && sudo -E apt -y install code
 
 # Various networking and monitoring tools
-sudo -E apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk tcpdump filezilla ghex
+sudo -E apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk tcpdump filezilla ghex texlive asciidoc certbot fio glances iftop ioping iotop iptraf-ng nmon pngcrush pv setools
 
 # Image editing and media
 sudo -E apt -y install krita gimp inkscape pinta vlc obs-studio shutter audacity
