@@ -35,7 +35,7 @@ sudo -E apt update && sudo -E apt -y install code
 sudo -E apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk tcpdump filezilla ghex texlive asciidoc certbot fio glances iftop ioping iotop iptraf-ng nmon pngcrush pv setools
 
 # Image editing and media
-sudo -E apt -y install krita gimp inkscape pinta vlc obs-studio shutter audacity
+sudo -E apt -y install krita inkscape pinta vlc obs-studio shutter audacity
 
 # Peek screen recorder
 sudo -E add-apt-repository ppa:peek-developers/stable -y
@@ -55,9 +55,6 @@ sudo -E apt -y install aws-nuke
 
 # GitKraken
 sudo -E snap install gitkraken --classic
-
-# DBeaver
-sudo -E snap install dbeaver-ce
 
 # Postman
 sudo -E snap install postman
@@ -81,6 +78,9 @@ sudo -E snap install eclipse --classic
 # Flatseal
 sudo -E flatpak install flathub com.github.tchx84.Flatseal -y
 
+# DBeaver
+sudo -E flatpak install flathub io.dbeaver.DBeaverCommunity -y
+
 # PeaZip
 sudo -E flatpak install flathub io.github.peazip.PeaZip -y
 
@@ -95,6 +95,12 @@ sudo -E flatpak install flathub com.microsoft.Edge -y
 
 # Okteta
 sudo -E flatpak install flathub org.kde.okteta -y
+
+# Draw.io
+sudo -E flatpak install flathub com.jgraph.drawio.desktop -y
+
+# GIMP
+sudo -E flatpak install flathub org.gimp.GIMP -y
 
 # This replaces the AWS client with a newer version
 sudo -E apt remove -y awscli
