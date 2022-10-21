@@ -42,8 +42,36 @@ sudo -E add-apt-repository ppa:peek-developers/stable -y
 sudo -E apt update
 sudo -E apt install peek -y
 
+# Podman
+sudo -E apt -y install podman
+cat <<EOF | sudo tee /etc/containers/registries.conf
+# Note that changing the order here may break tests.
+unqualified-search-registries = ['docker.io', 'quay.io', 'registry.fedoraproject.org']
+
+[[registry]]
+# In Nov. 2020, Docker rate-limits image pulling.  To avoid hitting these
+# limits while testing, always use the google mirror for qualified and
+# unqualified `docker.io` images.
+# Ref: https://cloud.google.com/container-registry/docs/pulling-cached-images
+prefix="docker.io"
+location="mirror.gcr.io"
+
+# 2020-10-27 a number of images are not present in gcr.io, and podman
+# barfs spectacularly when trying to fetch them. We've hand-copied
+# those to quay, using skopeo copy --all ...
+[[registry]]
+prefix="docker.io/library"
+location="quay.io/libpod"
+
+# For testing #11933 to make sure that registries.conf is consulted unless
+# --tls-verify is used during container creation.
+[[registry]]
+location="localhost:5000"
+insecure=true
+EOF
+
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
-sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6 podman
+sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
 sudo -E apt -y install php-cli php-common php-gd php-xml php8.1-cli php8.1-common php8.1-gd php8.1-opcache php8.1-readline php8.1-xml php-pear
 sudo -E gem install webdrivers rails serverspec
 
