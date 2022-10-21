@@ -43,7 +43,7 @@ sudo -E apt update
 sudo -E apt install peek -y
 
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
-sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
+sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6 podman
 sudo -E apt -y install php-cli php-common php-gd php-xml php8.1-cli php8.1-common php8.1-gd php8.1-opcache php8.1-readline php8.1-xml php-pear
 sudo -E gem install webdrivers rails serverspec
 
@@ -101,6 +101,9 @@ sudo -E flatpak install flathub com.jgraph.drawio.desktop -y
 
 # GIMP
 sudo -E flatpak install flathub org.gimp.GIMP -y
+
+# Podman Desktop
+sudo -E flatpak install io.podman_desktop.PodmanDesktop -y
 
 # This replaces the AWS client with a newer version
 sudo -E apt remove -y awscli
