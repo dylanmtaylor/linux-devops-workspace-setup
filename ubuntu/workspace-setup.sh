@@ -44,6 +44,7 @@ sudo -E apt install peek -y
 
 # Podman
 sudo -E apt -y install podman
+sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $(whoami)
 cat <<EOF | sudo tee /etc/containers/registries.conf
 # Note that changing the order here may break tests.
 unqualified-search-registries = ['docker.io', 'quay.io', 'registry.fedoraproject.org']
