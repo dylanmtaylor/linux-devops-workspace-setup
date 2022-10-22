@@ -43,7 +43,7 @@ sudo -E apt update
 sudo -E apt install peek -y
 
 # Podman
-sudo -E apt -y install podman
+sudo -E apt -y install podman buildah skopeo crun
 sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $(whoami)
 cat <<EOF | sudo tee /etc/containers/registries.conf
 # Note that changing the order here may break tests.
