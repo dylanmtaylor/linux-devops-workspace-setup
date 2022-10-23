@@ -190,7 +190,7 @@ curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.
 sudo -E apt-get -y install speedtest
 
 # Topgrade for easy system upgrades
-cargo install topgrade
+cargo install topgrade cargo-update
 sed -i '/export PATH/c\export PATH=\$PATH:/home/$(whoami)/.cargo/bin/' ~/.zshrc 
 
 # Make app grid alphabetical initially
