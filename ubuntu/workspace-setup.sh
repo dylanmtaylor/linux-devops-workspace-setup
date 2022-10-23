@@ -45,6 +45,7 @@ sudo -E apt install peek -y
 # Podman
 sudo -E apt -y install podman buildah skopeo crun
 sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $(whoami)
+sudo podman system migrate
 cat <<EOF | sudo tee /etc/containers/registries.conf
 unqualified-search-registries = ['docker.io']
 
@@ -55,6 +56,7 @@ unqualified-search-registries = ['docker.io']
 prefix="docker.io"
 location="mirror.gcr.io"
 EOF
+
 
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
