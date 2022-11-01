@@ -57,6 +57,10 @@ prefix="docker.io"
 location="mirror.gcr.io"
 EOF
 
+# Terraformer 
+curl -LO https://github.com/GoogleCloudPlatform/terraformer/releases/download/$(curl -s https://api.github.com/repos/GoogleCloudPlatform/terraformer/releases/latest | grep tag_name | cut -d '"' -f 4)/terraformer-all-linux-amd64
+chmod +x terraformer-all-linux-amd64
+sudo mv terraformer-all-linux-amd64 /usr/bin/terraformer
 
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
