@@ -95,6 +95,9 @@ sudo -E snap install intellij-idea-community --classic --edge
 # Eclipse
 sudo -E snap install eclipse --classic
 
+# Slack
+sudo -E snap install slack
+
 # Flatseal
 sudo -E flatpak install flathub com.github.tchx84.Flatseal -y
 
@@ -124,6 +127,9 @@ sudo -E flatpak install flathub org.gimp.GIMP -y
 
 # Podman Desktop
 sudo -E flatpak install io.podman_desktop.PodmanDesktop -y
+
+# Okular
+sudo -E flatpak install flathub org.kde.okular -y
 
 # This replaces the AWS client with a newer version
 sudo -E apt remove -y awscli
