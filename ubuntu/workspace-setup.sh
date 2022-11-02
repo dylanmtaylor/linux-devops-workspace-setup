@@ -62,6 +62,12 @@ curl -LO https://github.com/GoogleCloudPlatform/terraformer/releases/download/$(
 chmod +x terraformer-all-linux-amd64
 sudo mv terraformer-all-linux-amd64 /usr/bin/terraformer
 
+# TerraCognita
+curl -L https://github.com/cycloidio/terracognita/releases/latest/download/terracognita-linux-amd64.tar.gz -o terracognita-linux-amd64.tar.gz
+tar -xf terracognita-linux-amd64.tar.gz
+chmod u+x terracognita-linux-amd64
+sudo mv terracognita-linux-amd64 /usr/local/bin/terracognita
+
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
 sudo -E apt -y install php-cli php-common php-gd php-xml php8.1-cli php8.1-common php8.1-gd php8.1-opcache php8.1-readline php8.1-xml php-pear
