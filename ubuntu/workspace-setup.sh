@@ -57,6 +57,11 @@ prefix="docker.io"
 location="mirror.gcr.io"
 EOF
 
+# Development tools: OpenJDK 11, Rust and NodeJS, etc.
+sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
+sudo -E apt -y install php-cli php-common php-gd php-xml php8.1-cli php8.1-common php8.1-gd php8.1-opcache php8.1-readline php8.1-xml php-pear
+sudo -E gem install webdrivers rails serverspec
+
 # Terraformer 
 curl -LO https://github.com/GoogleCloudPlatform/terraformer/releases/download/$(curl -s https://api.github.com/repos/GoogleCloudPlatform/terraformer/releases/latest | grep tag_name | cut -d '"' -f 4)/terraformer-all-linux-amd64
 chmod +x terraformer-all-linux-amd64
@@ -68,10 +73,9 @@ tar -xf terracognita-linux-amd64.tar.gz
 chmod u+x terracognita-linux-amd64
 sudo mv terracognita-linux-amd64 /usr/local/bin/terracognita
 
-# Development tools: OpenJDK 11, Rust and NodeJS, etc.
-sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6
-sudo -E apt -y install php-cli php-common php-gd php-xml php8.1-cli php8.1-common php8.1-gd php8.1-opcache php8.1-readline php8.1-xml php-pear
-sudo -E gem install webdrivers rails serverspec
+# tfedit and tfmigrate
+go install github.com/minamijoyo/tfedit@latest
+go install github.com/minamijoyo/tfmigrate@latest
 
 # AWS Session Manager and AWS Nuke
 curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
@@ -194,7 +198,7 @@ sudo -E apt-get -y install speedtest
 
 # Topgrade for easy system upgrades
 cargo install topgrade cargo-update
-sed -i '/export PATH/c\export PATH=\$PATH:/home/$(whoami)/.cargo/bin/' ~/.zshrc 
+sed -i '/export PATH/c\export PATH=\$PATH:/home/$(whoami)/.cargo/bin/:/home/$(whoami)/go/bin/' ~/.zshrc 
 
 # Make app grid alphabetical initially
 gsettings set org.gnome.shell app-picker-layout "[]"
