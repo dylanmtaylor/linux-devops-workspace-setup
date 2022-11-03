@@ -72,6 +72,7 @@ curl -L https://github.com/cycloidio/terracognita/releases/latest/download/terra
 tar -xf terracognita-linux-amd64.tar.gz
 chmod u+x terracognita-linux-amd64
 sudo mv terracognita-linux-amd64 /usr/local/bin/terracognita
+rm terracognita-linux-amd64.tar.gz
 
 # tfedit and tfmigrate
 go install github.com/minamijoyo/tfedit@latest
