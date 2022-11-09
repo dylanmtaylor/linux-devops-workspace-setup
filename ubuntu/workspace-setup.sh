@@ -102,6 +102,9 @@ sudo -E snap install helm --classic
 # Kubectl
 sudo -E snap install kubectl --classic
 
+# Starship
+sudo -E snap install starship --edge
+
 # JetBrains community IDEs
 sudo -E snap install pycharm-community --classic
 sudo -E snap install intellij-idea-community --classic --edge
@@ -163,9 +166,6 @@ sudo -E flatpak install flathub org.libreoffice.LibreOffice -y
 
 # Oh My ZSH
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Starship
-cargo install starship --locked
 
 # Docker
 if ! command -v docker &> /dev/null
