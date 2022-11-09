@@ -57,6 +57,9 @@ prefix="docker.io"
 location="mirror.gcr.io"
 EOF
 
+# Distrobox
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6 cmake
 sudo -E apt -y install php-cli php-common php-gd php-xml php8.1-cli php8.1-common php8.1-gd php8.1-opcache php8.1-readline php8.1-xml php-pear
@@ -108,9 +111,6 @@ sudo -E snap install eclipse --classic
 
 # Slack
 sudo -E snap install slack
-
-# Distrobox
-sudo -E snap install distrobox --edge --devmode
 
 # Flatseal
 sudo -E flatpak install flathub com.github.tchx84.Flatseal -y
