@@ -164,6 +164,9 @@ sudo -E flatpak install flathub org.libreoffice.LibreOffice -y
 # Oh My ZSH
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+# Starship
+cargo install starship --locked
+
 # Docker
 if ! command -v docker &> /dev/null
 then
@@ -225,5 +228,6 @@ gnome-shell-extension-installer 1160 # Dash to Panel
 git clone --depth 1 https://github.com/ryanoasis/nerd-fonts ~/nerd-fonts 
 cd ~/nerd-fonts
 ./install.sh
+
 
 echo "Done. A reboot is required."
