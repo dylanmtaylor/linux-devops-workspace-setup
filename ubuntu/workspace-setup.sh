@@ -224,6 +224,6 @@ gnome-shell-extension-installer 1160 # Dash to Panel
 # Nerd Fonts
 git clone --depth 1 https://github.com/ryanoasis/nerd-fonts ~/nerd-fonts 
 cd ~/nerd-fonts
-sudo -E bash install.sh
+./install.sh
 
 echo "Done. A reboot is required."
