@@ -110,7 +110,7 @@ sudo -E snap install eclipse --classic
 sudo -E snap install slack
 
 # Distrobox
-sudo -E snap install distrobox --edge
+sudo -E snap install distrobox --edge --devmode
 
 # Flatseal
 sudo -E flatpak install flathub com.github.tchx84.Flatseal -y
