@@ -17,7 +17,7 @@ sudo -E flatpak update -y
 sudo -E apt -y install chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager
 
 # Google Chrome (and some various packages that are dependencies)
-if ! command -v docker &> /dev/null
+if ! command -v google-chrome &> /dev/null
 then
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     sudo -E apt update && sudo -E apt -y install ./google-chrome-stable_current_amd64.deb 
@@ -174,6 +174,11 @@ then
     sudo -E usermod -aG docker $(whoami)
     sudo -E systemctl enable --now docker
     sudo chown $(whoami) /var/run/docker.sock # This is not very secure, but it's the only way I've found to get this working with a domain user.
+    ## Make DNS work:
+    sed -i '/DNSStubListenerExtra/c\DNSStubListenerExtra=172.17.0.1' /etc/systemd/resolved.conf
+    sudo systemctl restart systemd-resolved
+    echo '{ "dns": ["172.17.0.1"] }' | sudo tee /etc/docker/daemon.json
+    sudo systemctl restart docker
 fi
 
 # Chef repository
