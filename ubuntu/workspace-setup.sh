@@ -5,16 +5,27 @@ export NEEDRESTART_MODE=a
 export NEEDRESTART_SUSPEND=true
 export DEBIAN_PRIORITY=critical
 
-# Do a system upgrade and install some pre-reqs
+# Do a system upgrade and install some pre-reqs plus GNOME packages for further system customization
 sudo -E apt update && sudo -E apt -y full-upgrade
-sudo -E apt -y install unzip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak build-essential zsh
+sudo -E apt -y install unzip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager build-essential zsh
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# Run Flatpak updates if any are available
+# Install Flatpak updates if any are available
 sudo -E flatpak update -y
 
-# GNOME Packages
-sudo -E apt -y install chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager
+# Install Docker and configure it in a way that works with domain users and AWS workspaces networking
+if ! command -v docker &> /dev/null
+then
+    curl -fsSL https://get.docker.com | bash
+    sudo -E usermod -aG docker $(whoami)
+    sudo -E systemctl enable --now docker
+    sudo chown $(whoami) /var/run/docker.sock # This is not very secure, but it's the only way I've found to get this working with a domain user.
+    ## Make DNS work:
+    sed -i '/DNSStubListenerExtra/c\DNSStubListenerExtra=172.17.0.1' /etc/systemd/resolved.conf
+    sudo systemctl restart systemd-resolved
+    echo '{ "dns": ["172.17.0.1"] }' | sudo tee /etc/docker/daemon.json
+    sudo systemctl restart docker
+fi
 
 # Google Chrome
 if ! command -v google-chrome &> /dev/null
@@ -38,18 +49,16 @@ fi
 sudo -E sh -c 'echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 sudo -E apt update && sudo -E apt -y install code
 
-# Various networking and monitoring tools
-sudo -E apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk tcpdump filezilla ghex texlive asciidoc certbot fio glances iftop ioping iotop iptraf-ng nmon pngcrush pv setools
+# Replace Firefox with Flatpak version
+sudo -E apt remove -y firefox thunderbird
+sudo -E snap remove firefox
+sudo -E flatpak install flathub org.mozilla.firefox -y
 
-# Image editing and media
-sudo -E apt -y install krita inkscape pinta vlc obs-studio shutter audacity
+# Replace LibreOffice with Flatpak version
+sudo -E apt remove -y libreoffice-base-core libreoffice-calc libreoffice-common libreoffice-core libreoffice-draw libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-gb libreoffice-help-en-us libreoffice-help-fr libreoffice-help-ja libreoffice-help-ko libreoffice-help-zh-cn libreoffice-help-zh-tw libreoffice-impress libreoffice-l10n-en-gb libreoffice-l10n-en-za libreoffice-l10n-fr libreoffice-l10n-ja libreoffice-l10n-ko libreoffice-l10n-zh-cn libreoffice-l10n-zh-tw libreoffice-math libreoffice-pdfimport libreoffice-style-breeze libreoffice-style-colibre libreoffice-style-elementary libreoffice-style-yaru libreoffice-writer
+sudo -E flatpak install flathub org.libreoffice.LibreOffice -y
 
-# Peek screen recorder
-sudo -E add-apt-repository ppa:peek-developers/stable -y
-sudo -E apt update
-sudo -E apt install peek -y
-
-# Podman
+# Podman and registry configuration
 sudo -E apt -y install podman buildah skopeo crun
 sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $(whoami)
 sudo podman system migrate
@@ -66,6 +75,17 @@ EOF
 
 # Distrobox
 curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+
+# Various networking and monitoring tools
+sudo -E apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk tcpdump filezilla ghex texlive asciidoc certbot fio glances iftop ioping iotop iptraf-ng nmon pngcrush pv setools
+
+# Image editing and media
+sudo -E apt -y install krita inkscape pinta vlc obs-studio shutter audacity
+
+# Peek screen recorder
+sudo -E add-apt-repository ppa:peek-developers/stable -y
+sudo -E apt update
+sudo -E apt install peek -y
 
 # Development tools: OpenJDK 11, Rust and NodeJS, etc.
 sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6 cmake
@@ -99,18 +119,6 @@ sudo -E snap install gitkraken --classic
 
 # Postman
 sudo -E snap install postman
-
-# PowerShell
-sudo -E snap install powershell --classic
-
-# Helm
-sudo -E snap install helm --classic
-
-# Kubectl
-sudo -E snap install kubectl --classic
-
-# Starship
-sudo -E snap install starship --edge
 
 # JetBrains community IDEs
 sudo -E snap install pycharm-community --classic
@@ -152,39 +160,6 @@ sudo -E flatpak install io.podman_desktop.PodmanDesktop -y
 # Okular
 sudo -E flatpak install flathub org.kde.okular -y
 
-# This replaces the AWS client with a newer version
-sudo -E apt remove -y awscli
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-rm awscliv2.zip
-rm -rf ./aws
-aws --version
-
-# Google Cloud SDK
-sudo -E snap install google-cloud-sdk --classic
-
-# Replace LibreOffice with Flatpak version
-sudo -E apt remove -y libreoffice-base-core libreoffice-calc libreoffice-common libreoffice-core libreoffice-draw libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-gb libreoffice-help-en-us libreoffice-help-fr libreoffice-help-ja libreoffice-help-ko libreoffice-help-zh-cn libreoffice-help-zh-tw libreoffice-impress libreoffice-l10n-en-gb libreoffice-l10n-en-za libreoffice-l10n-fr libreoffice-l10n-ja libreoffice-l10n-ko libreoffice-l10n-zh-cn libreoffice-l10n-zh-tw libreoffice-math libreoffice-pdfimport libreoffice-style-breeze libreoffice-style-colibre libreoffice-style-elementary libreoffice-style-yaru libreoffice-writer
-sudo -E flatpak install flathub org.libreoffice.LibreOffice -y
-
-# Oh My ZSH
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Docker
-if ! command -v docker &> /dev/null
-then
-    curl -fsSL https://get.docker.com | bash
-    sudo -E usermod -aG docker $(whoami)
-    sudo -E systemctl enable --now docker
-    sudo chown $(whoami) /var/run/docker.sock # This is not very secure, but it's the only way I've found to get this working with a domain user.
-    ## Make DNS work:
-    sed -i '/DNSStubListenerExtra/c\DNSStubListenerExtra=172.17.0.1' /etc/systemd/resolved.conf
-    sudo systemctl restart systemd-resolved
-    echo '{ "dns": ["172.17.0.1"] }' | sudo tee /etc/docker/daemon.json
-    sudo systemctl restart docker
-fi
-
 # Chef repository
 wget -qO - https://packages.chef.io/chef.asc | sudo apt-key add -
 echo "deb https://packages.chef.io/repos/apt/stable focal main" | sudo -E tee /etc/apt/sources.list.d/chef-stable.list
@@ -211,14 +186,6 @@ wget https://github.com/java-decompiler/jd-gui/releases/download/v1.6.6/jd-gui-1
 sudo -E apt install ./jd-gui-1.6.6.deb -y
 rm -f ./jd-gui-1.6.6.deb
 
-# Speedtest CLI
-curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo -E bash
-sudo -E apt-get -y install speedtest
-
-# Topgrade for easy system upgrades
-cargo install topgrade cargo-update
-sed -i '/export PATH/c\export PATH=\$PATH:/home/$(whoami)/.cargo/bin/:/home/$(whoami)/go/bin/' ~/.zshrc 
-
 # Make app grid alphabetical initially
 gsettings set org.gnome.shell app-picker-layout "[]"
 
@@ -232,11 +199,5 @@ gnome-shell-extension-installer 4269 # Alphabetical App Grid
 gnome-shell-extension-installer 3628 # ArcMenu
 gnome-shell-extension-installer 517  # Caffeine
 gnome-shell-extension-installer 1160 # Dash to Panel
-
-# Nerd Fonts
-git clone --depth 1 https://github.com/ryanoasis/nerd-fonts ~/nerd-fonts 
-cd ~/nerd-fonts
-./install.sh
-
 
 echo "Done. A reboot is required."
