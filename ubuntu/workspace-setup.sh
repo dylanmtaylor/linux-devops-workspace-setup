@@ -77,16 +77,11 @@ EOF
 wget -qO - https://packages.chef.io/chef.asc | sudo apt-key add -
 echo "deb https://packages.chef.io/repos/apt/stable focal main" | sudo -E tee /etc/apt/sources.list.d/chef-stable.list
 
-# Various networking and monitoring tools
-sudo -E apt -y install meld remmina wireshark-gtk filezilla ghex
+# RDP/VNC connectivity and packet monitoring
+sudo -E apt -y install remmina wireshark-gtk
 
-# Image editing and media
-sudo -E apt -y install krita inkscape pinta vlc obs-studio shutter audacity
-
-# Peek screen recorder
-sudo -E add-apt-repository ppa:peek-developers/stable -y
-sudo -E apt update
-sudo -E apt install peek -y
+# Screen capture and media playback
+sudo -E apt -y install vlc mpv obs-studio shutter
 
 # GitKraken
 sudo -E snap install gitkraken --classic
@@ -106,6 +101,12 @@ sudo -E snap install eclipse --classic
 
 # Flatseal
 sudo -E flatpak install flathub com.github.tchx84.Flatseal -y
+
+# FileZilla
+sudo -E flatpak install flathub org.filezillaproject.Filezilla -y
+
+# Audacity
+sudo -E flatpak install flathub org.audacityteam.Audacity -y
 
 # DBeaver
 sudo -E flatpak install flathub io.dbeaver.DBeaverCommunity -y
@@ -128,8 +129,20 @@ sudo -E flatpak install flathub com.jgraph.drawio.desktop -y
 # GIMP
 sudo -E flatpak install flathub org.gimp.GIMP -y
 
+# Inkscape
+sudo -E flatpak install flathub org.inkscape.Inkscape -y
+
+# Krita
+sudo -E flatpak install flathub org.kde.krita -y
+
+# Meld
+sudo -E flatpak install flathub org.gnome.meld -y
+
+# Pinta
+sudo -E flatpak install flathub com.github.PintaProject.Pinta -y
+
 # Podman Desktop
-sudo -E flatpak install io.podman_desktop.PodmanDesktop -y
+sudo -E flatpak install flathub io.podman_desktop.PodmanDesktop -y
 
 # Okular
 sudo -E flatpak install flathub org.kde.okular -y
@@ -152,16 +165,5 @@ rm -f ./jd-gui-1.6.6.deb
 
 # Make app grid alphabetical initially
 gsettings set org.gnome.shell app-picker-layout "[]"
-
-# GNOME Extension Installer Script
-wget -O gnome-shell-extension-installer "https://github.com/brunelli/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
-chmod +x gnome-shell-extension-installer
-sudo -E mv gnome-shell-extension-installer /usr/bin/
-
-# GNOME Extensions I Like
-gnome-shell-extension-installer 4269 # Alphabetical App Grid
-gnome-shell-extension-installer 3628 # ArcMenu
-gnome-shell-extension-installer 517  # Caffeine
-gnome-shell-extension-installer 1160 # Dash to Panel
 
 echo "Done. A reboot is required."
