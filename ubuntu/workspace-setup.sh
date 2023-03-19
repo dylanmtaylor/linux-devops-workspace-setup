@@ -126,14 +126,14 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.awscli2
     pkgs.aws-nuke
     pkgs.btop
-    pkgs.buildah
+    # pkgs.buildah
     pkgs.cargo
     pkgs.certbot
     pkgs.chromedriver
     pkgs.cmake
     pkgs.curl
     pkgs.dig
-    pkgs.docker
+    # pkgs.docker
     pkgs.dos2unix
     pkgs.dotnet-sdk_7
     pkgs.fio
@@ -165,7 +165,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.nodejs
     pkgs.p7zip
     pkgs.packer
-    pkgs.podman
+    # pkgs.podman
     pkgs.powershell
     pkgs.pngcrush
     pkgs.pv
@@ -173,13 +173,13 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.rar
     pkgs.ruby
     pkgs.shellcheck
-    pkgs.skopeo
+    # pkgs.skopeo
     pkgs.speedtest-cli
     pkgs.ssm-session-manager-plugin
     pkgs.starship
     pkgs.tcpdump
     pkgs.temurin-bin
-    pkgs.texlive.combined.scheme-full
+    pkgs.texlive.combined.scheme-tetex
     pkgs.terracognita
     pkgs.terraform
     pkgs.terraform-docs
