@@ -204,8 +204,8 @@ home-manager switch
 
 # Make Ubuntu use Nix's GNOME shell extensions 
 #ln -s $HOME/.nix-profile/share/gnome-shell/extensions/ $HOME/.local/share/gnome-shell/extensions
-cp -R $HOME/.nix-profile/share/gnome-shell/extensions/ $HOME/.local/share/gnome-shell/extensions
-chown -R $(whoami) $HOME/.local/share/gnome-shell/extensions
+rsync -raL $HOME/.nix-profile/share/gnome-shell/extensions/ $HOME/.local/share/gnome-shell/extensions
+chmod -R 666 $HOME/.local/share/gnome-shell/extensions
 
 # RDP/VNC connectivity and packet monitoring
 sudo -E apt -y install remmina wireshark-gtk
