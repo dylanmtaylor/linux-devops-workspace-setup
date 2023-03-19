@@ -133,6 +133,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.cmake
     pkgs.curl
     pkgs.dig
+    pkgs.distrobox
     # pkgs.docker
     pkgs.dos2unix
     pkgs.dotnet-sdk_7
