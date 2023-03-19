@@ -78,7 +78,10 @@ wget -qO - https://packages.chef.io/chef.asc | sudo apt-key add -
 echo "deb https://packages.chef.io/repos/apt/stable focal main" | sudo -E tee /etc/apt/sources.list.d/chef-stable.list
 
 # Install and configure Nix. This incorporates some workarounds because of being a domain user.
+if ! command -v nix-shell &> /dev/null
+then
 sh <(curl -L https://nixos.org/nix/install) --daemon
+fi
 
 # Try to source the nix profile
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
@@ -88,7 +91,7 @@ source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
 nix-shell -p nix-info --run "nix-info -m"
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 sudo mkdir -p /nix/var/nix/profiles/per-user/$USERNAME/
-chown "$(id -un)":"$(id -gn)" /nix/var/nix/profiles/per-user/$USERNAME/
+sudo chown "$(id -un)":"$(id -gn)" /nix/var/nix/profiles/per-user/$USERNAME/
 nix-channel --update
 nix-shell '<home-manager>' -A install
 home-manager init
