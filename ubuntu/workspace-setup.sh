@@ -145,7 +145,6 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.glances
     pkgs.gnomeExtensions.alphabetical-app-grid
     pkgs.gnomeExtensions.arcmenu
-    pkgs.gnomeExtensions.caffeine
     pkgs.gnomeExtensions.dash-to-panel
     pkgs.go
     pkgs.google-cloud-sdk
@@ -204,7 +203,9 @@ EOF
 home-manager switch
 
 # Make Ubuntu use Nix's GNOME shell extensions 
-ln -s $HOME/.nix-profile/share/gnome-shell/extensions/ $HOME/.local/share/gnome-shell/extensions
+#ln -s $HOME/.nix-profile/share/gnome-shell/extensions/ $HOME/.local/share/gnome-shell/extensions
+cp -R $HOME/.nix-profile/share/gnome-shell/extensions/ $HOME/.local/share/gnome-shell/extensions
+chown -R $(whoami) $HOME/.local/share/gnome-shell/extensions
 
 # RDP/VNC connectivity and packet monitoring
 sudo -E apt -y install remmina wireshark-gtk
