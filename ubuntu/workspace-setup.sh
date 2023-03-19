@@ -73,11 +73,12 @@ prefix="docker.io"
 location="mirror.gcr.io"
 EOF
 
-# Distrobox
-curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+# Chef repository
+wget -qO - https://packages.chef.io/chef.asc | sudo apt-key add -
+echo "deb https://packages.chef.io/repos/apt/stable focal main" | sudo -E tee /etc/apt/sources.list.d/chef-stable.list
 
 # Various networking and monitoring tools
-sudo -E apt -y install meld btop htop remmina neofetch nmap ncat wireshark-gtk tcpdump filezilla ghex texlive asciidoc certbot fio glances iftop ioping iotop iptraf-ng nmon pngcrush pv setools
+sudo -E apt -y install meld remmina wireshark-gtk filezilla ghex
 
 # Image editing and media
 sudo -E apt -y install krita inkscape pinta vlc obs-studio shutter audacity
@@ -86,33 +87,6 @@ sudo -E apt -y install krita inkscape pinta vlc obs-studio shutter audacity
 sudo -E add-apt-repository ppa:peek-developers/stable -y
 sudo -E apt update
 sudo -E apt install peek -y
-
-# Development tools: OpenJDK 11, Rust and NodeJS, etc.
-sudo -E apt -y install openjdk-11-jdk nodejs cargo npm yarn maven ansible golang python3-pip neovim whois ruby-dev ruby-serverspec dotnet6 cmake
-sudo -E apt -y install php-cli php-common php-gd php-xml php8.1-cli php8.1-common php8.1-gd php8.1-opcache php8.1-readline php8.1-xml php-pear
-sudo -E gem install webdrivers rails serverspec
-
-# Terraformer 
-curl -LO https://github.com/GoogleCloudPlatform/terraformer/releases/download/$(curl -s https://api.github.com/repos/GoogleCloudPlatform/terraformer/releases/latest | grep tag_name | cut -d '"' -f 4)/terraformer-all-linux-amd64
-chmod +x terraformer-all-linux-amd64
-sudo mv terraformer-all-linux-amd64 /usr/bin/terraformer
-
-# TerraCognita
-curl -L https://github.com/cycloidio/terracognita/releases/latest/download/terracognita-linux-amd64.tar.gz -o terracognita-linux-amd64.tar.gz
-tar -xf terracognita-linux-amd64.tar.gz
-chmod u+x terracognita-linux-amd64
-sudo mv terracognita-linux-amd64 /usr/local/bin/terracognita
-rm terracognita-linux-amd64.tar.gz
-
-# tfedit and tfmigrate
-go install github.com/minamijoyo/tfedit@latest
-go install github.com/minamijoyo/tfmigrate@latest
-
-# AWS Session Manager and AWS Nuke
-curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
-sudo -E dpkg -i session-manager-plugin.deb
-rm -f session-manager-plugin.deb
-sudo -E apt -y install aws-nuke
 
 # GitKraken
 sudo -E snap install gitkraken --classic
@@ -128,7 +102,7 @@ sudo -E snap install intellij-idea-community --classic --edge
 sudo -E snap install eclipse --classic
 
 # Slack
-sudo -E snap install slack
+# sudo -E snap install slack
 
 # Flatseal
 sudo -E flatpak install flathub com.github.tchx84.Flatseal -y
@@ -159,16 +133,6 @@ sudo -E flatpak install io.podman_desktop.PodmanDesktop -y
 
 # Okular
 sudo -E flatpak install flathub org.kde.okular -y
-
-# Chef repository
-wget -qO - https://packages.chef.io/chef.asc | sudo apt-key add -
-echo "deb https://packages.chef.io/repos/apt/stable focal main" | sudo -E tee /etc/apt/sources.list.d/chef-stable.list
-
-# Hashicorp Tools
-wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo -E tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA418C88A3219F7B # workaround, but seems reliable at least.
-echo "deb https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo -E tee /etc/apt/sources.list.d/hashicorp.list
-sudo -E apt update && sudo -E apt -y install boundary consul consul-esm consul-k8s consul-template consul-terraform-sync nomad nomad-autoscaler packer terraform terraform-ls vagrant vault waypoint
 
 # Oracle Instant Client
 sudo -E apt -y install alien libaio1
