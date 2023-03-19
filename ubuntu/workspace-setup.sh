@@ -21,7 +21,7 @@ then
     sudo -E systemctl enable --now docker
     sudo chown $(whoami) /var/run/docker.sock # This is not very secure, but it's the only way I've found to get this working with a domain user.
     ## Make DNS work:
-    sed -i '/DNSStubListenerExtra/c\DNSStubListenerExtra=172.17.0.1' /etc/systemd/resolved.conf
+    sudo sed -i '/DNSStubListenerExtra/c\DNSStubListenerExtra=172.17.0.1' /etc/systemd/resolved.conf
     sudo systemctl restart systemd-resolved
     echo '{ "dns": ["172.17.0.1"] }' | sudo tee /etc/docker/daemon.json
     sudo systemctl restart docker
