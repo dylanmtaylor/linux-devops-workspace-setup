@@ -132,6 +132,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.chromedriver
     pkgs.cmake
     pkgs.curl
+    pkgs.dconf2nix
     pkgs.dig
     pkgs.distrobox
     # pkgs.docker
