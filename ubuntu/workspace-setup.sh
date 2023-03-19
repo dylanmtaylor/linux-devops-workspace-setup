@@ -16,7 +16,7 @@ sudo -E flatpak update -y
 # GNOME Packages
 sudo -E apt -y install chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager
 
-# Google Chrome (and some various packages that are dependencies)
+# Google Chrome
 if ! command -v google-chrome &> /dev/null
 then
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -24,11 +24,18 @@ then
     rm -f ./google-chrome-stable_current_amd64.deb
 fi
 
+# Microsoft Edge
+if ! command -v microsoft-edge &> /dev/null
+then
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    sudo -E install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+    sudo -E sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge.list'
+    sudo -E rm microsoft.gpg
+    sudo -E apt update && sudo -E apt install microsoft-edge-stable
+fi
+
 # VS Code
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo -E install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-sudo -E sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-rm -f packages.microsoft.gpg
+sudo -E sh -c 'echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 sudo -E apt update && sudo -E apt -y install code
 
 # Various networking and monitoring tools
@@ -129,9 +136,6 @@ sudo -E flatpak install flathub com.usebottles.bottles -y
 
 # Zenmap
 sudo -E flatpak install flathub org.nmap.Zenmap -y
-
-# Microsoft Edge (for compatibility testing)
-sudo -E flatpak install flathub com.microsoft.Edge -y
 
 # Okteta
 sudo -E flatpak install flathub org.kde.okteta -y
