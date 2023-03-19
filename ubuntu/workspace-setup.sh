@@ -143,9 +143,6 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.git
     pkgs.git-lfs
     pkgs.glances
-    pkgs.gnomeExtensions.alphabetical-app-grid
-    pkgs.gnomeExtensions.arcmenu
-    pkgs.gnomeExtensions.dash-to-panel
     pkgs.go
     pkgs.google-cloud-sdk
     pkgs.graphviz
@@ -169,7 +166,9 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.powershell
     pkgs.pngcrush
     pkgs.pv
-    pkgs.python3
+    pkgs.python310Full
+    pkgs.python310Packages.pip
+    pkgs.python310Packages.pipx
     pkgs.rar
     pkgs.ruby
     pkgs.shellcheck
@@ -202,8 +201,13 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
 EOF
 home-manager switch
 
-# Fix me: Make Ubuntu use Nix's GNOME shell extensions 
-#ln -s $HOME/.nix-profile/share/gnome-shell/extensions/ $HOME/.local/share/gnome-shell/
+# Install and enable my desired GNOME shell extensions 
+pipx ensurepath
+pipx install gnome-extensions-cli --system-site-packages
+$HOME/.local/bin/gext install dash-to-panel@jderose9.github.com
+$HOME/.local/bin/gext install arcmenu@arcmenu.com
+$HOME/.local/bin/gext install AlphabeticalAppGrid@stuarthayhurst
+$HOME/.local/bin/gext install caffeine@patapon.info
 
 # RDP/VNC connectivity and packet monitoring
 sudo -E apt -y install remmina wireshark-gtk
