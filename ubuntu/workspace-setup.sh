@@ -125,7 +125,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.asciidoc
     pkgs.awscli2
     pkgs.aws-nuke
-    pkgs.azurecli
+    pkgs.azure-cli
     pkgs.boundary
     pkgs.btop
     # pkgs.buildah
