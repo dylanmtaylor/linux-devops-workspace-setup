@@ -203,6 +203,7 @@ EOF
 home-manager switch
 
 # Make the 'nerdfonts' available.
+mkdir -p $HOME/.local/share/fonts/ # Just in case
 ln -s $HOME/.nix-profile/share/fonts/* $HOME/.local/share/fonts/
 
 # Install and enable my desired GNOME shell extensions 
