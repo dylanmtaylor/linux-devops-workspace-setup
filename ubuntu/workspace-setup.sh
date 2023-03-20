@@ -125,13 +125,18 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.asciidoc
     pkgs.awscli2
     pkgs.aws-nuke
+    pkgs.azurecli
+    pkgs.boundary
     pkgs.btop
     # pkgs.buildah
     pkgs.cargo
     pkgs.certbot
     pkgs.chromedriver
     pkgs.cmake
+    pkgs.consul
+    pkgs.consul-template
     pkgs.curl
+    pkgs.cyberchef
     pkgs.dconf2nix
     pkgs.dig
     pkgs.distrobox
@@ -161,6 +166,8 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.neovim
     pkgs.nmap
     pkgs.nodejs
+    pkgs.nomad
+    pkgs.nomad-autoscaler
     pkgs.p7zip
     pkgs.packer
     # pkgs.podman
@@ -183,6 +190,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.terracognita
     pkgs.terraform
     pkgs.terraform-docs
+    pkgs.terraform-ls
     pkgs.terraformer
     pkgs.tfsec
     pkgs.tldr
@@ -192,6 +200,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.vagrant
     pkgs.vault
     pkgs.vim
+    pkgs.waypoint
     pkgs.whois
     pkgs.wget
     pkgs.yarn
