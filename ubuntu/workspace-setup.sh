@@ -202,6 +202,9 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
 EOF
 home-manager switch
 
+# Make the 'nerdfonts' available.
+ln -s $HOME/.nix-profile/share/fonts/* $HOME/.local/share/fonts/
+
 # Install and enable my desired GNOME shell extensions 
 pipx ensurepath
 pipx install gnome-extensions-cli --system-site-packages
