@@ -11,8 +11,8 @@ The script performs the following functions:
     * This was actually particularly challenging to figure out, because with an AD-joined user it's not set up like a local account.
 * Installs Google Chrome, Microsoft Edge, and Visual Studio Code from their respective stable repositories.
 * Replaces Firefox and LibreOffice with their Flatpak versions. This is because:
-    a) Snaps are terrible compared to Flatpak and native packages from a performance standpoint.
-    b) I like having up to date software and don't care to be stuck with an LTS release.
+    * Snaps are terrible compared to Flatpak and native packages from a performance standpoint.
+    * I like having up to date software and don't care to be stuck with an LTS release.
 * Installs Podman and registry configuration for that. Podman has proven to be a bit finicky on WorkSpaces, but it mostly works.
 * Adds the Chef repository in case in the future I want to use Chef Workstation.
 * Installs and configures Nix and home-manager for declarative package/home management
