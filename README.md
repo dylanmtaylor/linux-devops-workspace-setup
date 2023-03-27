@@ -19,7 +19,8 @@ The script performs the following functions:
 * Writes a copy of my `home.nix` file and runs `home-manager switch` to evaluate and apply it.
 * Installs a handful of GNOME Extensions I like to have:
     * Dash to Panel
-    * Arch Menu
+    * Alphabetical App Grid
+    * Arc Menu
     * Caffeine
 * Installs numerous GUI applications via snap/flatpak depending on my preference and official-status of the source.
     * I generally try to use flatpak over snap but some snaps have official sources that are better maintained. 
