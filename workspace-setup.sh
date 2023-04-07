@@ -27,56 +27,6 @@ then
     sudo systemctl restart docker
 fi
 
-# Google Chrome
-if ! command -v google-chrome &> /dev/null
-then
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    sudo -E apt update && sudo -E apt -y install ./google-chrome-stable_current_amd64.deb 
-    rm -f ./google-chrome-stable_current_amd64.deb
-fi
-
-# Microsoft Edge
-if ! command -v microsoft-edge &> /dev/null
-then
-    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-    sudo -E install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
-    sudo -E sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge.list'
-    sudo -E rm microsoft.gpg
-    sudo -E apt update && sudo -E apt install microsoft-edge-stable
-fi
-
-# VS Code
-sudo -E sh -c 'echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-sudo -E apt update && sudo -E apt -y install code
-
-# Replace Firefox with Flatpak version
-sudo -E apt remove -y firefox thunderbird
-sudo -E snap remove firefox
-sudo -E flatpak install flathub org.mozilla.firefox -y
-
-# Replace LibreOffice with Flatpak version
-sudo -E apt remove -y libreoffice-base-core libreoffice-calc libreoffice-common libreoffice-core libreoffice-draw libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-gb libreoffice-help-en-us libreoffice-help-fr libreoffice-help-ja libreoffice-help-ko libreoffice-help-zh-cn libreoffice-help-zh-tw libreoffice-impress libreoffice-l10n-en-gb libreoffice-l10n-en-za libreoffice-l10n-fr libreoffice-l10n-ja libreoffice-l10n-ko libreoffice-l10n-zh-cn libreoffice-l10n-zh-tw libreoffice-math libreoffice-pdfimport libreoffice-style-breeze libreoffice-style-colibre libreoffice-style-elementary libreoffice-style-yaru libreoffice-writer
-sudo -E flatpak install flathub org.libreoffice.LibreOffice -y
-
-# Podman and registry configuration
-sudo -E apt -y install podman buildah skopeo crun
-sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $(whoami)
-sudo podman system migrate
-cat <<EOF | sudo tee /etc/containers/registries.conf
-unqualified-search-registries = ['docker.io']
-
-[[registry]]
-# In Nov. 2020, Docker rate-limits image pulling.  To avoid hitting these
-# limits, always use the google mirror for qualified and unqualified `docker.io` images.
-# Ref: https://cloud.google.com/container-registry/docs/pulling-cached-images
-prefix="docker.io"
-location="mirror.gcr.io"
-EOF
-
-# Chef repository
-wget -qO - https://packages.chef.io/chef.asc | sudo apt-key add -
-echo "deb https://packages.chef.io/repos/apt/stable focal main" | sudo -E tee /etc/apt/sources.list.d/chef-stable.list
-
 # Install and configure Nix. This incorporates some workarounds because of being a domain user.
 if ! command -v nix-shell &> /dev/null
 then
@@ -229,6 +179,57 @@ $HOME/.local/bin/gext install dash-to-panel@jderose9.github.com
 $HOME/.local/bin/gext install arcmenu@arcmenu.com
 $HOME/.local/bin/gext install AlphabeticalAppGrid@stuarthayhurst
 $HOME/.local/bin/gext install caffeine@patapon.info
+
+
+# Google Chrome
+if ! command -v google-chrome &> /dev/null
+then
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo -E apt update && sudo -E apt -y install ./google-chrome-stable_current_amd64.deb 
+    rm -f ./google-chrome-stable_current_amd64.deb
+fi
+
+# Microsoft Edge
+if ! command -v microsoft-edge &> /dev/null
+then
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    sudo -E install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+    sudo -E sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge.list'
+    sudo -E rm microsoft.gpg
+    sudo -E apt update && sudo -E apt install microsoft-edge-stable
+fi
+
+# VS Code
+sudo -E sh -c 'echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo -E apt update && sudo -E apt -y install code
+
+# Replace Firefox with Flatpak version
+sudo -E apt remove -y firefox thunderbird
+sudo -E snap remove firefox
+sudo -E flatpak install flathub org.mozilla.firefox -y
+
+# Replace LibreOffice with Flatpak version
+sudo -E apt remove -y libreoffice-base-core libreoffice-calc libreoffice-common libreoffice-core libreoffice-draw libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-gb libreoffice-help-en-us libreoffice-help-fr libreoffice-help-ja libreoffice-help-ko libreoffice-help-zh-cn libreoffice-help-zh-tw libreoffice-impress libreoffice-l10n-en-gb libreoffice-l10n-en-za libreoffice-l10n-fr libreoffice-l10n-ja libreoffice-l10n-ko libreoffice-l10n-zh-cn libreoffice-l10n-zh-tw libreoffice-math libreoffice-pdfimport libreoffice-style-breeze libreoffice-style-colibre libreoffice-style-elementary libreoffice-style-yaru libreoffice-writer
+sudo -E flatpak install flathub org.libreoffice.LibreOffice -y
+
+# Podman and registry configuration
+sudo -E apt -y install podman buildah skopeo crun
+sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $(whoami)
+sudo podman system migrate
+cat <<EOF | sudo tee /etc/containers/registries.conf
+unqualified-search-registries = ['docker.io']
+
+[[registry]]
+# In Nov. 2020, Docker rate-limits image pulling.  To avoid hitting these
+# limits, always use the google mirror for qualified and unqualified `docker.io` images.
+# Ref: https://cloud.google.com/container-registry/docs/pulling-cached-images
+prefix="docker.io"
+location="mirror.gcr.io"
+EOF
+
+# Chef repository
+wget -qO - https://packages.chef.io/chef.asc | sudo apt-key add -
+echo "deb https://packages.chef.io/repos/apt/stable focal main" | sudo -E tee /etc/apt/sources.list.d/chef-stable.list
 
 # RDP/VNC connectivity and packet monitoring
 sudo -E apt -y install remmina wireshark-gtk
