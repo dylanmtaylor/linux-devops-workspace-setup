@@ -175,11 +175,10 @@ ln -s $HOME/.nix-profile/share/fonts/* $HOME/.local/share/fonts/
 # Install and enable my desired GNOME shell extensions 
 #pipx ensurepath
 #pipx install gnome-extensions-cli --system-site-packages
-$HOME/.local/bin/gext install dash-to-panel@jderose9.github.com
-$HOME/.local/bin/gext install arcmenu@arcmenu.com
-$HOME/.local/bin/gext install AlphabeticalAppGrid@stuarthayhurst
-$HOME/.local/bin/gext install caffeine@patapon.info
-
+gext install dash-to-panel@jderose9.github.com
+gext install arcmenu@arcmenu.com
+gext install AlphabeticalAppGrid@stuarthayhurst
+gext install caffeine@patapon.info
 
 # Google Chrome
 if ! command -v google-chrome &> /dev/null
