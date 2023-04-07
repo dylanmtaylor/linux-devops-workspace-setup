@@ -164,7 +164,6 @@ in
     pkgs.vagrant
     pkgs.vault
     pkgs.vim
-    pkgs.vite
     pkgs.waypoint
     pkgs.whois
     pkgs.wget
