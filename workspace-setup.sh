@@ -99,13 +99,15 @@ home-manager init
 # Write config to ~/.config/home-manager/home.nix and build and switch.
 cat <<EOF > $HOME/.config/home-manager/home.nix
 { config, pkgs, ... }:
-
+let
+  master = import (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/master)
+  { config = config.nixpkgs.config; };
+in
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "taylord";
   home.homeDirectory = "/home/taylord";
-
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -114,12 +116,10 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "22.11";
-
+  home.stateVersion = "23.05";
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
-
   home.packages = [
     pkgs.ansible
     pkgs.asciidoc
@@ -128,7 +128,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.azure-cli
     pkgs.boundary
     pkgs.btop
-    # pkgs.buildah
+    pkgs.buildah
     pkgs.cargo
     pkgs.certbot
     pkgs.chromedriver
@@ -140,15 +140,19 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.dconf2nix
     pkgs.dig
     pkgs.distrobox
-    # pkgs.docker
     pkgs.dos2unix
     pkgs.dotnet-sdk_7
+    pkgs.ffmpeg
     pkgs.fio
     pkgs.gawk
+    pkgs.gcc
     pkgs.geckodriver
     pkgs.git
     pkgs.git-lfs
+    pkgs.github-cli
     pkgs.glances
+    pkgs.gnumake
+    master.gnome-extensions-cli
     pkgs.go
     pkgs.google-cloud-sdk
     pkgs.graphviz
@@ -160,6 +164,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.kubetail
     pkgs.jq
     pkgs.maven
+    master.meraki-cli
     pkgs.minikube
     pkgs.nerdfonts
     pkgs.neofetch
@@ -170,17 +175,18 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.nomad-autoscaler
     pkgs.p7zip
     pkgs.packer
-    # pkgs.podman
     pkgs.powershell
     pkgs.pngcrush
+    pkgs.progress
     pkgs.pv
     pkgs.python310Full
     pkgs.python310Packages.pip
     pkgs.python310Packages.pipx
     pkgs.rar
     pkgs.ruby
+    master.scalr-cli
     pkgs.shellcheck
-    # pkgs.skopeo
+    pkgs.skopeo
     pkgs.speedtest-cli
     pkgs.ssm-session-manager-plugin
     pkgs.starship
@@ -197,6 +203,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     pkgs.topgrade
     pkgs.tree
     pkgs.unar
+    pkgs.unzip
     pkgs.vagrant
     pkgs.vault
     pkgs.vim
@@ -216,8 +223,8 @@ mkdir -p $HOME/.local/share/fonts/ # Just in case
 ln -s $HOME/.nix-profile/share/fonts/* $HOME/.local/share/fonts/
 
 # Install and enable my desired GNOME shell extensions 
-pipx ensurepath
-pipx install gnome-extensions-cli --system-site-packages
+#pipx ensurepath
+#pipx install gnome-extensions-cli --system-site-packages
 $HOME/.local/bin/gext install dash-to-panel@jderose9.github.com
 $HOME/.local/bin/gext install arcmenu@arcmenu.com
 $HOME/.local/bin/gext install AlphabeticalAppGrid@stuarthayhurst
