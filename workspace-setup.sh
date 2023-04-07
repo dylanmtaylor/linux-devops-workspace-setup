@@ -70,12 +70,15 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnsupportedSystem = true;
   home.packages = [
     pkgs.ansible
     pkgs.asciidoc
     pkgs.awscli2
+    pkgs.aws-vault
     pkgs.aws-nuke
     pkgs.azure-cli
+    pkgs.bfg-repo-cleaner
     pkgs.boundary
     pkgs.btop
     pkgs.buildah
@@ -101,11 +104,13 @@ in
     pkgs.git-lfs
     pkgs.github-cli
     pkgs.glances
-    pkgs.gnumake
     master.gnome-extensions-cli
+    pkgs.gnum4
+    pkgs.gnumake
     pkgs.go
     pkgs.google-cloud-sdk
     pkgs.graphviz
+    pkgs.harfbuzz
     pkgs.htop
     pkgs.iftop
     pkgs.ioping
@@ -113,6 +118,7 @@ in
     pkgs.kubernetes-helm
     pkgs.kubetail
     pkgs.jq
+    pkgs.libtool
     pkgs.maven
     master.meraki-cli
     pkgs.minikube
@@ -125,6 +131,7 @@ in
     pkgs.nomad-autoscaler
     pkgs.p7zip
     pkgs.packer
+    pkgs.pcre2
     pkgs.powershell
     pkgs.pngcrush
     pkgs.progress
@@ -157,6 +164,7 @@ in
     pkgs.vagrant
     pkgs.vault
     pkgs.vim
+    pkgs.vite
     pkgs.waypoint
     pkgs.whois
     pkgs.wget
