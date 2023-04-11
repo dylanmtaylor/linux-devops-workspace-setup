@@ -27,6 +27,10 @@ then
     sudo systemctl restart docker
 fi
 
+# Enable Nix flakes and nix-command
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+
 # Install and configure Nix. This incorporates some workarounds because of being a domain user.
 if ! command -v nix-shell &> /dev/null
 then
