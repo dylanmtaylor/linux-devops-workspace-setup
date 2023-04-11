@@ -114,6 +114,7 @@ in
     pkgs.htop
     pkgs.iftop
     pkgs.ioping
+    pkgs.jd-gui
     pkgs.kubectl
     pkgs.kubernetes-helm
     pkgs.kubetail
@@ -129,6 +130,7 @@ in
     pkgs.nodejs
     pkgs.nomad
     pkgs.nomad-autoscaler
+    master.oracle-instantclient
     pkgs.p7zip
     pkgs.packer
     pkgs.pcre2
@@ -180,8 +182,6 @@ mkdir -p $HOME/.local/share/fonts/ # Just in case
 ln -s $HOME/.nix-profile/share/fonts/* $HOME/.local/share/fonts/
 
 # Install and enable my desired GNOME shell extensions 
-#pipx ensurepath
-#pipx install gnome-extensions-cli --system-site-packages
 gext install dash-to-panel@jderose9.github.com
 gext install arcmenu@arcmenu.com
 gext install AlphabeticalAppGrid@stuarthayhurst
@@ -306,22 +306,6 @@ sudo -E flatpak install flathub io.podman_desktop.PodmanDesktop -y
 
 # Okular
 sudo -E flatpak install flathub org.kde.okular -y
-
-# Oracle Instant Client
-sudo -E apt -y install alien libaio1
-wget https://download.oracle.com/otn_software/linux/instantclient/219000/oracle-instantclient-basic-21.9.0.0.0-1.el8.x86_64.rpm
-wget https://download.oracle.com/otn_software/linux/instantclient/219000/oracle-instantclient-sqlplus-21.9.0.0.0-1.el8.x86_64.rpm
-wget https://download.oracle.com/otn_software/linux/instantclient/219000/oracle-instantclient-tools-21.9.0.0.0-1.el8.x86_64.rpm
-wget https://download.oracle.com/otn_software/linux/instantclient/219000/oracle-instantclient-devel-21.9.0.0.0-1.el8.x86_64.rpm
-sudo alien -i *.rpm
-rm -f oracle*.rpm
-sudo sh -c  'echo /usr/lib/oracle/21/client64/lib/ > /etc/ld.so.conf.d/oracle.conf'
-sudo ldconfig
-
-# JD GUI
-wget https://github.com/java-decompiler/jd-gui/releases/download/v1.6.6/jd-gui-1.6.6.deb
-sudo -E apt install ./jd-gui-1.6.6.deb -y
-rm -f ./jd-gui-1.6.6.deb
 
 # Make app grid alphabetical initially
 gsettings set org.gnome.shell app-picker-layout "[]"
