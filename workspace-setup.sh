@@ -53,7 +53,7 @@ home-manager init
 # Write home-manager flake configuration
 cat <<EOF > $HOME/.config/home-manager/flake.nix
 {
-  description = "Home Manager configuration of dylan";
+  description = "Dylan's Home Manager configuration";
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
@@ -66,7 +66,7 @@ cat <<EOF > $HOME/.config/home-manager/flake.nix
 
   outputs = { nixpkgs, home-manager, ... }:
     let
-      system = "aarch64-linux";
+      system = "$(uname -m)-linux";
       # pkgs = nixpkgs.legacyPackages.${system};
       pkgs = import nixpkgs {
         inherit system;
@@ -75,7 +75,7 @@ cat <<EOF > $HOME/.config/home-manager/flake.nix
       };
 
     in {
-      homeConfigurations.dylan = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."$USERNAME" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
