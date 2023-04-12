@@ -95,8 +95,8 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "taylord";
-  home.homeDirectory = "/home/taylord";
+  home.username = "$(whoami)";
+  home.homeDirectory = "$HOME";
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
