@@ -73,7 +73,7 @@ cat <<EOF > $HOME/.config/home-manager/flake.nix
 
   outputs = { nixpkgs, home-manager, ... }:
     let
-      system = "$SYSTEM_ARCH-$(uname -s | tr '[A-Z]' '[a-z])'";
+      system = "$SYSTEM_ARCH-$(uname -s | tr '[A-Z]' '[a-z]')";
       # pkgs = nixpkgs.legacyPackages.${system};
       pkgs = import nixpkgs {
         inherit system;
