@@ -50,13 +50,48 @@ nix-channel --update
 nix-shell '<home-manager>' -A install
 home-manager init
 
+# Write home-manager flake configuration
+cat <<EOF > $HOME/.config/home-manager/flake.nix
+{
+  description = "Home Manager configuration of dylan";
+
+  inputs = {
+    # Specify the source of Home Manager and Nixpkgs.
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { nixpkgs, home-manager, ... }:
+    let
+      system = "aarch64-linux";
+      # pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        config.allowUnsupportedSystem = true;
+      };
+
+    in {
+      homeConfigurations.dylan = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [ ./home.nix ];
+
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
+      };
+    };
+}
+EOF
+
 # Write config to ~/.config/home-manager/home.nix and build and switch.
 cat <<EOF > $HOME/.config/home-manager/home.nix
 { config, pkgs, ... }:
-let
-  master = import (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/master)
-  { config = config.nixpkgs.config; };
-in
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -73,112 +108,118 @@ in
   home.stateVersion = "23.05";
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowUnsupportedSystem = true;
-  home.packages = [
-    pkgs.ansible
-    pkgs.asciidoc
-    pkgs.awscli2
-    pkgs.aws-vault
-    pkgs.aws-nuke
-    pkgs.azure-cli
-    pkgs.bfg-repo-cleaner
-    pkgs.boundary
-    pkgs.btop
-    pkgs.buildah
-    pkgs.cargo
-    pkgs.certbot
-    pkgs.chromedriver
-    pkgs.cmake
-    pkgs.consul
-    pkgs.consul-template
-    pkgs.curl
-    pkgs.cyberchef
-    pkgs.dconf2nix
-    pkgs.dig
-    pkgs.distrobox
-    pkgs.dos2unix
-    pkgs.dotnet-sdk_7
-    pkgs.ffmpeg
-    pkgs.fio
-    pkgs.gawk
-    pkgs.gcc
-    pkgs.geckodriver
-    pkgs.git
-    pkgs.git-lfs
-    pkgs.github-cli
-    pkgs.glances
-    master.gnome-extensions-cli
-    pkgs.gnum4
-    pkgs.gnumake
-    pkgs.go
-    pkgs.google-cloud-sdk
-    pkgs.graphviz
-    pkgs.harfbuzz
-    pkgs.htop
-    pkgs.iftop
-    pkgs.ioping
-    pkgs.jd-gui
-    pkgs.kubectl
-    pkgs.kubernetes-helm
-    pkgs.kubetail
-    pkgs.jq
-    pkgs.libtool
-    pkgs.maven
-    master.meraki-cli
-    pkgs.minikube
-    pkgs.nerdfonts
-    pkgs.neofetch
-    pkgs.neovim
-    pkgs.nmap
-    pkgs.nodejs
-    pkgs.nomad
-    pkgs.nomad-autoscaler
-    master.oracle-instantclient
-    pkgs.p7zip
-    pkgs.packer
-    pkgs.pcre2
-    pkgs.powershell
-    pkgs.pngcrush
-    pkgs.progress
-    pkgs.pv
-    pkgs.python310Full
-    pkgs.python310Packages.pip
-    pkgs.python310Packages.pipx
-    pkgs.rar
-    pkgs.ruby
-    master.scalr-cli
-    pkgs.shellcheck
-    pkgs.skopeo
-    pkgs.speedtest-cli
-    pkgs.ssm-session-manager-plugin
-    pkgs.starship
-    pkgs.tcpdump
-    pkgs.temurin-bin
-    pkgs.texlive.combined.scheme-tetex
-    pkgs.terracognita
-    pkgs.terraform
-    pkgs.terraform-docs
-    pkgs.terraform-ls
-    pkgs.terraformer
-    pkgs.tfsec
-    pkgs.tldr
-    pkgs.topgrade
-    pkgs.tree
-    pkgs.unar
-    pkgs.unzip
-    pkgs.vagrant
-    pkgs.vault
-    pkgs.vim
-    pkgs.waypoint
-    pkgs.whois
-    pkgs.wget
-    pkgs.yarn
-    pkgs.yq
-    pkgs.zsh
+
+  home.packages = with pkgs; [
+    ansible
+    asciidoc
+    awscli2
+    aws-vault
+    aws-nuke
+    azure-cli
+    bfg-repo-cleaner
+    boundary
+    btop
+    buildah
+    cargo
+    certbot
+    chromedriver
+    cmake
+    consul
+    consul-template
+    curl
+    cyberchef
+    dconf2nix
+    dig
+    distrobox
+    dos2unix
+    dotnet-sdk_7
+    ffmpeg
+    fio
+    gawk
+    gcc
+    geckodriver
+    git
+    git-lfs
+    github-cli
+    glances
+    gnome-extensions-cli
+    gnum4
+    gnumake
+    go
+    google-cloud-sdk
+    graphviz
+    harfbuzz
+    htop
+    iftop
+    ioping
+    jd-gui
+    kubectl
+    kubernetes-helm
+    kubetail
+    jq
+    libtool
+    maven
+    meraki-cli
+    minikube
+    nerdfonts
+    neofetch
+    neovim
+    nmap
+    nodejs
+    nomad
+    nomad-autoscaler
+    oracle-instantclient
+    p7zip
+    packer
+    pcre2
+    powershell
+    pngcrush
+    progress
+    pv
+    python310Full
+    python310Packages.pip
+    python310Packages.pipx
+    rar
+    ruby
+    scalr-cli
+    shellcheck
+    skopeo
+    speedtest-cli
+    ssm-session-manager-plugin
+    starship
+    tcpdump
+    temurin-bin
+    texlive.combined.scheme-tetex
+    terracognita
+    terraform
+    terraform-docs
+    terraform-ls
+    terraformer
+    tfsec
+    tldr
+    topgrade
+    tree
+    unar
+    unzip
+    vagrant
+    vault
+    vim
+    waypoint
+    whois
+    wget
+    yarn
+    yq
+    zsh  
   ];
 }
 EOF
+
+# Patch out incompatible packages on aarch64
+if [[ $(uname -m) == "aarch64" ]]; then
+  sed -i '/chromedriver/d' $HOME/.config/home-manager/home.nix
+  sed -i '/rar/d' $HOME/.config/home-manager/home.nix
+fi
+
 home-manager switch
 
 # Make the 'nerdfonts' available.
@@ -213,10 +254,12 @@ fi
 sudo -E sh -c 'echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 sudo -E apt update && sudo -E apt -y install code
 
-# Replace Firefox with Flatpak version
-sudo -E apt remove -y firefox thunderbird
-sudo -E snap remove firefox
-sudo -E flatpak install flathub org.mozilla.firefox -y
+# Replace Firefox with Flatpak version (not built for aarch64, so skip this step on that arch)
+if [[ $(uname -m) != "aarch64" ]]; then 
+    sudo -E apt remove -y firefox thunderbird
+    sudo -E snap remove firefox
+    sudo -E flatpak install flathub org.mozilla.firefox -y
+fi
 
 # Replace LibreOffice with Flatpak version
 sudo -E apt remove -y libreoffice-base-core libreoffice-calc libreoffice-common libreoffice-core libreoffice-draw libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-gb libreoffice-help-en-us libreoffice-help-fr libreoffice-help-ja libreoffice-help-ko libreoffice-help-zh-cn libreoffice-help-zh-tw libreoffice-impress libreoffice-l10n-en-gb libreoffice-l10n-en-za libreoffice-l10n-fr libreoffice-l10n-ja libreoffice-l10n-ko libreoffice-l10n-zh-cn libreoffice-l10n-zh-tw libreoffice-math libreoffice-pdfimport libreoffice-style-breeze libreoffice-style-colibre libreoffice-style-elementary libreoffice-style-yaru libreoffice-writer
