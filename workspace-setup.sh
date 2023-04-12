@@ -229,6 +229,26 @@ fi
 
 home-manager switch
 
+# Oracle Instant Client Configuration (minus my $HOME/.tnsnames.ora file w/ connection details for RDS)
+curl -Ls https://github.com/dylanmtaylor/public-ca-oracle-wallet/releases/download/v1.0.0/cwallet.sso > $HOME/cwallet.sso
+cat <<EOF > $HOME/.sqlnet.ora
+> SQLNET.AUTHENTICATION_SERVICES= (NTS)
+
+NAMES.DIRECTORY_PATH= (TNSNAMES, EZCONNECT)
+
+SQLNET.ALLOWED_LOGON_VERSION_CLIENT = 11
+
+SQLNET.ALLOWED_LOGON_VERSION_SERVER = 11
+
+SQLNET.EXPIRE_TIME=10
+
+WALLET_LOCATION=
+(SOURCE =
+    (METHOD=FILE)
+    (METHOD_DATA= (DIRECTORY=$HOME))
+)
+EOF
+
 # Make the 'nerdfonts' available.
 mkdir -p $HOME/.local/share/fonts/ # Just in case
 ln -s $HOME/.nix-profile/share/fonts/* $HOME/.local/share/fonts/
