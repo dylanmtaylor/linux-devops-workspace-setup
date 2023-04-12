@@ -53,6 +53,10 @@ export NIXPKGS_ALLOW_UNFREE=1
 export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
 home-manager init
 
+# Deal with the fact that Nix expects exactly "aarch64" for _all_ ARM64 systems
+SYSTEM_ARCH="$(uname -m)";
+if [[ $(echo $SYSTEM_ARCH | grep "arm") ]]; then SYSTEM_ARCH="aarch64"; fi
+
 # Write home-manager flake configuration
 cat <<EOF > $HOME/.config/home-manager/flake.nix
 {
@@ -69,7 +73,7 @@ cat <<EOF > $HOME/.config/home-manager/flake.nix
 
   outputs = { nixpkgs, home-manager, ... }:
     let
-      system = "$(uname -m)-linux";
+      system = "$SYSTEM_ARCH-$(uname -s | tr '[A-Z]' '[a-z])'";
       # pkgs = nixpkgs.legacyPackages.${system};
       pkgs = import nixpkgs {
         inherit system;
