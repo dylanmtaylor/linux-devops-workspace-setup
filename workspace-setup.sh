@@ -74,7 +74,6 @@ cat <<EOF > $HOME/.config/home-manager/flake.nix
   outputs = { nixpkgs, home-manager, ... }:
     let
       system = "$SYSTEM_ARCH-$(uname -s | tr '[A-Z]' '[a-z]')";
-      # pkgs = nixpkgs.legacyPackages.${system};
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
@@ -119,9 +118,9 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
   home.packages = with pkgs; [
     ansible
     asciidoc
-    awscli2
-    aws-vault
     aws-nuke
+    aws-vault
+    awscli2
     azure-cli
     bfg-repo-cleaner
     boundary
@@ -160,17 +159,17 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     iftop
     ioping
     jd-gui
+    jq
     kubectl
     kubernetes-helm
     kubetail
-    jq
     libtool
     maven
     meraki-cli
     minikube
-    nerdfonts
     neofetch
     neovim
+    nerdfonts
     nmap
     nodejs
     nomad
@@ -179,8 +178,8 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     p7zip
     packer
     pcre2
-    powershell
     pngcrush
+    powershell
     progress
     pv
     python310Full
@@ -196,12 +195,12 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     starship
     tcpdump
     temurin-bin
-    texlive.combined.scheme-tetex
     terracognita
     terraform
     terraform-docs
     terraform-ls
     terraformer
+    texlive.combined.scheme-tetex
     tfsec
     tldr
     topgrade
@@ -212,11 +211,11 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     vault
     vim
     waypoint
-    whois
     wget
+    whois
     yarn
     yq
-    zsh  
+    zsh
   ];
 }
 EOF
@@ -228,6 +227,10 @@ if [[ $(uname -m) == "aarch64" ]]; then
 fi
 
 home-manager switch
+
+# Topgrade configuration
+mkdir -p $HOME/.config/ # probably already there but just in case
+curl -Ls https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/topgrade.toml > $HOME/.config/topgrade.toml
 
 # Oracle Instant Client Configuration (minus my $HOME/.tnsnames.ora file w/ connection details for RDS)
 curl -Ls https://github.com/dylanmtaylor/public-ca-oracle-wallet/releases/download/v1.0.0/cwallet.sso > $HOME/cwallet.sso
