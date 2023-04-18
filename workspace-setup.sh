@@ -126,6 +126,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     boundary
     btop
     buildah
+    bundix
     cargo
     certbot
     chromedriver
