@@ -155,6 +155,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     google-cloud-sdk
     graphviz
     harfbuzz
+    hub
     htop
     iftop
     ioping
