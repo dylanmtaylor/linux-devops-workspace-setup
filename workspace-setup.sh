@@ -185,11 +185,20 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     progress
     pv
     python310Full
+    python310Packages.beautifulsoup4
+    python310Packages.boto3
+    python310Packages.botocore
+    python310Packages.flask
+    python310Packages.meraki
     python310Packages.pip
     python310Packages.pipx
+    python310Packages.pytz
+    python310Packages.requests
+    python310Packages.selenium
     rar
     ruby
     scalr-cli
+    selenium-server-standalone
     shellcheck
     skopeo
     speedtest-cli
