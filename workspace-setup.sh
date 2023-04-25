@@ -5,8 +5,15 @@ export NEEDRESTART_MODE=a
 export NEEDRESTART_SUSPEND=true
 export DEBIAN_PRIORITY=critical
 
-# Do a system upgrade and install some pre-reqs plus GNOME packages for further system customization
+# Do a system upgrade
 sudo -E apt update && sudo -E apt -y full-upgrade
+
+# Ensure as much software as possible is available.
+sudo dpkg --add-architecture i386 # Allows for use of i386 packages.
+sudo add-apt-repository universe -y # Some packages are found in universe repository.
+sudo add-apt-repository multiverse -y # Some packages are found in universe repository.
+
+# Install some pre-reqs plus GNOME packages for further system customization
 sudo -E apt -y install unzip unrar 7zip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager gnome-boxes build-essential zsh libfuse2
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
