@@ -7,7 +7,7 @@ export DEBIAN_PRIORITY=critical
 
 # Do a system upgrade and install some pre-reqs plus GNOME packages for further system customization
 sudo -E apt update && sudo -E apt -y full-upgrade
-sudo -E apt -y install unzip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager gnome-boxes build-essential zsh libfuse2
+sudo -E apt -y install unzip unrar 7zip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager gnome-boxes build-essential zsh libfuse2
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Install Flatpak updates if any are available
