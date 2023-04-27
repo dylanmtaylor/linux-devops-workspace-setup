@@ -191,17 +191,18 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     powershell
     progress
     pv
-    python310Full
-    python310Packages.beautifulsoup4
-    python310Packages.boto3
-    python310Packages.botocore
-    python310Packages.flask
-    python310Packages.meraki
-    python310Packages.pip
-    python310Packages.pipx
-    python310Packages.pytz
-    python310Packages.requests
-    python310Packages.selenium
+    python311Full
+    python311Packages.beautifulsoup4
+    python311Packages.boto3
+    python311Packages.botocore
+    python311Packages.flask
+    python311Packages.meraki
+    python311Packages.pip
+    python311Packages.pipx
+    python311Packages.pytz
+    python311Packages.requests
+    python311Packages.selenium
+    python311Packages.virtualenv
     rar
     ruby
     scalr-cli
