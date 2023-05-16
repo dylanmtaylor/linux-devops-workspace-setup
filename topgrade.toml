@@ -5,7 +5,7 @@
 disable = ["gcloud"]
 
 # Ignore failures for these steps
-#ignore_failures = ["powershell"]
+ignore_failures = ["tldr", "containers"]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]
@@ -45,7 +45,7 @@ disable = ["gcloud"]
 #cleanup = true
 
 # Skip sending a notification at the end of a run
-#skip_notify = true
+skip_notify = true
 
 # Skip the preamble displayed when topgrade is run
 #display_preamble = false
