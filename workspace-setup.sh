@@ -14,7 +14,7 @@ sudo add-apt-repository universe -y # Some packages are found in universe reposi
 sudo add-apt-repository multiverse -y # Some packages are found in universe repository.
 
 # Install some pre-reqs plus GNOME packages for further system customization
-sudo -E apt -y install unzip unrar 7zip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager gnome-boxes build-essential zsh libfuse2
+sudo -E apt -y install unzip unrar 7zip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager gnome-boxes build-essential zsh libfuse2 rclone
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Install Flatpak updates if any are available
@@ -204,6 +204,8 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     python311Packages.selenium
     python311Packages.virtualenv
     rar
+    rclone
+    restic
     ruby
     scalr-cli
     selenium-server-standalone
