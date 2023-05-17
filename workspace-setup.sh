@@ -349,7 +349,7 @@ sudo -E snap install postman
 
 # JetBrains community IDEs
 sudo -E snap install pycharm-community --classic
-sudo -E snap install intellij-idea-community --classic --edge
+sudo -E snap install intellij-idea-community --classic
 
 # Eclipse
 sudo -E snap install eclipse --classic
