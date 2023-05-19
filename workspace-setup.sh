@@ -276,6 +276,7 @@ EOF
 # Make the 'nerdfonts' available.
 mkdir -p $HOME/.local/share/fonts/ # Just in case
 ln -s $HOME/.nix-profile/share/fonts/* $HOME/.local/share/fonts/
+sudo -E fc-cache -f -v
 
 # Install and enable my desired GNOME shell extensions 
 gext install dash-to-panel@jderose9.github.com
