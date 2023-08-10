@@ -54,10 +54,11 @@ nix-channel --add https://github.com/nix-community/home-manager/archive/master.t
 sudo mkdir -p /nix/var/nix/profiles/per-user/$USERNAME/
 sudo chown "$(id -un)":"$(id -gn)" /nix/var/nix/profiles/per-user/$USERNAME/
 nix-channel --update
-nix-shell '<home-manager>' -A install
+
 # The following exports fix issues with running init if an existing home-manager configuration exists 
 export NIXPKGS_ALLOW_UNFREE=1
 export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
+nix-shell '<home-manager>' -A install
 home-manager init
 
 # Deal with the fact that Nix expects exactly "aarch64" for _all_ ARM64 systems
