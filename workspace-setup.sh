@@ -157,7 +157,6 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     git-lfs
     github-cli
     glances
-    gnome-extensions-cli
     gnum4
     gnumake
     go
@@ -184,6 +183,7 @@ cat <<EOF > $HOME/.config/home-manager/home.nix
     nodejs
     nomad
     nomad-autoscaler
+    opentofu
     oracle-instantclient
     p7zip
     packer
