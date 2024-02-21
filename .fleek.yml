@@ -4,7 +4,7 @@ aliases:
     update-fleek: nix run https://getfleek.dev/latest.tar.gz -- update
 allow_broken: false
 auto_gc: true
-bling: high
+bling: default
 blocklist: []
 byo_git: false
 ejected: false
@@ -31,6 +31,7 @@ packages:
     - bundix
     - cargo
     - certbot
+    - cheat
     - chromedriver
     - cmake
     - consul
@@ -42,6 +43,7 @@ packages:
     - distrobox
     - dos2unix
     - dotnet-sdk_7
+    - eza
     - ffmpeg
     - fio
     - gawk
