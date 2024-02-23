@@ -34,6 +34,10 @@ then
     sudo systemctl restart docker
 fi
 
+# Deal with the fact that Nix expects exactly "aarch64" for _all_ ARM64 systems
+SYSTEM_ARCH="$(uname -m)";
+if [[ $(echo $SYSTEM_ARCH | grep "arm") ]]; then SYSTEM_ARCH="aarch64"; fi
+
 # Install and configure Nix. This incorporates some workarounds because of being a domain user.
 export USER=`echo $USER|cut -d'@' -f1`
 export NIXPKGS_ALLOW_UNFREE=1
@@ -52,11 +56,9 @@ source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
 
 curl -L https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/.fleek.yml > $HOME/.fleek.yml
+sed -i "s/dylantaylor-pc/$(hostname)/g" $HOME/.fleek.yml
+sed -i "s/username: dylan/username: $USER/g" $HOME/.fleek.yml
 nix run "https://getfleek.dev/latest.tar.gz" -- apply
-
-# Deal with the fact that Nix expects exactly "aarch64" for _all_ ARM64 systems
-SYSTEM_ARCH="$(uname -m)";
-if [[ $(echo $SYSTEM_ARCH | grep "arm") ]]; then SYSTEM_ARCH="aarch64"; fi
 
 # Topgrade configuration
 mkdir -p $HOME/.config/ # probably already there but just in case
