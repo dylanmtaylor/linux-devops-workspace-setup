@@ -16,7 +16,6 @@ io.github.peazip.PeaZip
 io.missioncenter.MissionCenter
 io.podman_desktop.PodmanDesktop
 org.eclipse.Java
-org.fedoraproject.MediaWriter
 org.filezillaproject.Filezilla
 org.gimp.GIMP
 org.gnome.DejaDup
