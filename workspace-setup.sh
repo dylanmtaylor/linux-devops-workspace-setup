@@ -123,12 +123,10 @@ sudo -E apt update && sudo -E apt -y install code
 if [[ $(uname -m) != "aarch64" ]]; then 
     sudo -E apt remove -y firefox thunderbird
     sudo -E snap remove firefox
-    sudo -E flatpak install flathub org.mozilla.firefox -y
 fi
 
 # Replace LibreOffice with Flatpak version
 sudo -E apt remove -y libreoffice-base-core libreoffice-calc libreoffice-common libreoffice-core libreoffice-draw libreoffice-gnome libreoffice-gtk3 libreoffice-help-common libreoffice-help-en-gb libreoffice-help-en-us libreoffice-help-fr libreoffice-help-ja libreoffice-help-ko libreoffice-help-zh-cn libreoffice-help-zh-tw libreoffice-impress libreoffice-l10n-en-gb libreoffice-l10n-en-za libreoffice-l10n-fr libreoffice-l10n-ja libreoffice-l10n-ko libreoffice-l10n-zh-cn libreoffice-l10n-zh-tw libreoffice-math libreoffice-pdfimport libreoffice-style-breeze libreoffice-style-colibre libreoffice-style-elementary libreoffice-style-yaru libreoffice-writer
-sudo -E flatpak install flathub org.libreoffice.LibreOffice -y
 
 # Podman and registry configuration
 sudo -E apt -y install podman buildah skopeo crun
@@ -155,69 +153,8 @@ sudo -E apt -y install remmina wireshark-gtk
 # Screen capture and media playback
 sudo -E apt -y install vlc mpv obs-studio shutter
 
-# GitKraken
-sudo -E snap install gitkraken --classic
-
-# Postman
-sudo -E snap install postman
-
-# JetBrains community IDEs
-sudo -E snap install pycharm-community --classic
-sudo -E snap install intellij-idea-community --classic
-
-# Eclipse
-sudo -E snap install eclipse --classic
-
-# Slack
-# sudo -E snap install slack
-
-# Flatseal
-sudo -E flatpak install flathub com.github.tchx84.Flatseal -y
-
-# FileZilla
-sudo -E flatpak install flathub org.filezillaproject.Filezilla -y
-
-# Audacity
-sudo -E flatpak install flathub org.audacityteam.Audacity -y
-
-# DBeaver
-sudo -E flatpak install flathub io.dbeaver.DBeaverCommunity -y
-
-# PeaZip
-sudo -E flatpak install flathub io.github.peazip.PeaZip -y
-
-# Bottles
-sudo -E flatpak install flathub com.usebottles.bottles -y
-
-# Zenmap
-sudo -E flatpak install flathub org.nmap.Zenmap -y
-
-# Okteta
-sudo -E flatpak install flathub org.kde.okteta -y
-
-# Draw.io
-sudo -E flatpak install flathub com.jgraph.drawio.desktop -y
-
-# GIMP
-sudo -E flatpak install flathub org.gimp.GIMP -y
-
-# Inkscape
-sudo -E flatpak install flathub org.inkscape.Inkscape -y
-
-# Krita
-sudo -E flatpak install flathub org.kde.krita -y
-
-# Meld
-sudo -E flatpak install flathub org.gnome.meld -y
-
-# Pinta
-sudo -E flatpak install flathub com.github.PintaProject.Pinta -y
-
-# Podman Desktop
-sudo -E flatpak install flathub io.podman_desktop.PodmanDesktop -y
-
-# Okular
-sudo -E flatpak install flathub org.kde.okular -y
+# Install Flatpaks from my list of them
+readarray -t INSTALL < <(curl -Ls https://raw.githubusercontent.com/dylanmtaylor/linux-devops-workspace-setup/main/installed_flatpaks.txt) && sudo -E flatpak install "${INSTALL[@]}" -y
 
 # Make app grid alphabetical initially
 gsettings set org.gnome.shell app-picker-layout "[]"
