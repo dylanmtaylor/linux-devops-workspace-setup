@@ -42,10 +42,7 @@ if [[ $(echo $SYSTEM_ARCH | grep "arm") ]]; then SYSTEM_ARCH="aarch64"; fi
 export USER=`echo $USER|cut -d'@' -f1`
 export NIXPKGS_ALLOW_UNFREE=1
 export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
-if ! command -v nix-shell &> /dev/null
-then
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-fi
+command -v nix || curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 
 # Enable Nix flakes and nix-command
 mkdir -p ~/.config/nix
