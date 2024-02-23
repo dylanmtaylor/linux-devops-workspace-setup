@@ -97,6 +97,7 @@ packages:
     - skopeo
     - speedtest-cli
     - ssm-session-manager-plugin
+    - starship
     - tcpdump
     - temurin-bin
     - terracognita
