@@ -14,7 +14,7 @@ sudo add-apt-repository universe -y # Some packages are found in universe reposi
 sudo add-apt-repository multiverse -y # Some packages are found in universe repository.
 
 # Install some pre-reqs plus GNOME packages for further system customization
-sudo -E apt -y install unzip unrar 7zip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager gnome-boxes build-essential zsh libfuse2 rclone restic
+sudo -E apt -y install unzip unrar 7zip p7zip-full curl wget gpg flatpak gnome-software-plugin-flatpak chrome-gnome-shell gnome-tweaks gnome-shell-extension-manager gnome-boxes build-essential zsh libfuse2 rclone restic shutter
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Install Flatpak updates if any are available
@@ -38,64 +38,44 @@ fi
 SYSTEM_ARCH="$(uname -m)";
 if [[ $(echo $SYSTEM_ARCH | grep "arm") ]]; then SYSTEM_ARCH="aarch64"; fi
 
-# Install and configure Nix. This incorporates some workarounds because of being a domain user.
-export USER=`echo $USER|cut -d'@' -f1`
-export NIXPKGS_ALLOW_UNFREE=1
-export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
-if ! command -v nix &> /dev/null; then
+# Skip installation if nix and fleek are already there.
+if ! command -v nix &> /dev/null || ! command -v fleek &> /dev/null; then
+    # Install and configure Nix
+    export USER=$(echo $USER | cut -d'@' -f1)
+    export NIXPKGS_ALLOW_UNFREE=1
+    export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
     curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+    
+    # Enable Nix flakes and nix-command
+    mkdir -p ~/.config/nix
+    echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+    
+    # Try to source the nix profile
+    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+    
+    # Initialize Fleek
+    [ ! -f "$HOME/.local/share/fleek/.fleek.yml" ] && nix run "https://getfleek.dev/latest.tar.gz" -- init
+    
+    # Update Fleek configuration
+    curl -L https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/.fleek.yml > $HOME/.local/share/fleek/.fleek.yml
+    sed -i "s/dylantaylor-pc/$(hostname)/g" $HOME/.local/share/fleek/.fleek.yml
+    sed -i "s/username: dylan/username: $USER/g" $HOME/.local/share/fleek/.fleek.yml
+    nix run "https://getfleek.dev/latest.tar.gz" -- apply
+else
+    # Run fleek update and fleek apply
+    fleek update
+    fleek apply
 fi
-
-# Enable Nix flakes and nix-command
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
-
-# Try to source the nix profile
-source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-
-# Need to initialize Fleek. This config gets blown away but can't skip this step.
-[ ! -f "$HOME/.local/share/fleek/.fleek.yml" ] && nix run "https://getfleek.dev/latest.tar.gz" -- init
-
-curl -L https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/.fleek.yml > $HOME/.local/share/fleek/.fleek.yml
-sed -i "s/dylantaylor-pc/$(hostname)/g" $HOME/.local/share/fleek/.fleek.yml
-sed -i "s/username: dylan/username: $USER/g" $HOME/.local/share/fleek/.fleek.yml
-nix run "https://getfleek.dev/latest.tar.gz" -- apply
 
 # Topgrade configuration
 mkdir -p $HOME/.config/ # probably already there but just in case
 curl -Ls https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/topgrade.toml > $HOME/.config/topgrade.toml
 
-# Oracle Instant Client Configuration (minus my $HOME/.tnsnames.ora file w/ connection details for RDS)
-curl -Ls https://github.com/dylanmtaylor/public-ca-oracle-wallet/releases/download/v1.0.0/cwallet.sso > $HOME/cwallet.sso
-cat <<EOF > $HOME/.sqlnet.ora
-> SQLNET.AUTHENTICATION_SERVICES= (NTS)
-
-NAMES.DIRECTORY_PATH= (TNSNAMES, EZCONNECT)
-
-SQLNET.ALLOWED_LOGON_VERSION_CLIENT = 11
-
-SQLNET.ALLOWED_LOGON_VERSION_SERVER = 11
-
-SQLNET.EXPIRE_TIME=10
-
-WALLET_LOCATION=
-(SOURCE =
-    (METHOD=FILE)
-    (METHOD_DATA= (DIRECTORY=$HOME))
-)
-EOF
-
-# Make the 'nerdfonts' available.
-mkdir -p $HOME/.local/share/fonts/ # Just in case
-ln -s $HOME/.nix-profile/share/fonts/* $HOME/.local/share/fonts/
-sudo -E fc-cache -f -v
-
 # Install and enable my desired GNOME shell extensions 
 gext install dash-to-panel@jderose9.github.com
 gext install arcmenu@arcmenu.com
 gext install AlphabeticalAppGrid@stuarthayhurst
-gext install caffeine@patapon.info
 
 # Google Chrome
 if ! command -v google-chrome &> /dev/null
@@ -143,15 +123,25 @@ prefix="docker.io"
 location="mirror.gcr.io"
 EOF
 
-# Chef repository
-wget -qO - https://packages.chef.io/chef.asc | sudo apt-key add -
-echo "deb https://packages.chef.io/repos/apt/stable focal main" | sudo -E tee /etc/apt/sources.list.d/chef-stable.list
+# Oracle Instant Client Configuration (minus my $HOME/.tnsnames.ora file w/ connection details for RDS)
+curl -Ls https://github.com/dylanmtaylor/public-ca-oracle-wallet/releases/download/v1.0.0/cwallet.sso > $HOME/cwallet.sso
+cat <<EOF > $HOME/.sqlnet.ora
+> SQLNET.AUTHENTICATION_SERVICES= (NTS)
 
-# RDP/VNC connectivity and packet monitoring
-sudo -E apt -y install remmina wireshark-gtk
+NAMES.DIRECTORY_PATH= (TNSNAMES, EZCONNECT)
 
-# Screen capture and media playback
-sudo -E apt -y install vlc mpv obs-studio shutter
+SQLNET.ALLOWED_LOGON_VERSION_CLIENT = 11
+
+SQLNET.ALLOWED_LOGON_VERSION_SERVER = 11
+
+SQLNET.EXPIRE_TIME=10
+
+WALLET_LOCATION=
+(SOURCE =
+    (METHOD=FILE)
+    (METHOD_DATA= (DIRECTORY=$HOME))
+)
+EOF
 
 # Install Flatpaks from my list of them
 readarray -t INSTALL < <(curl -Ls https://raw.githubusercontent.com/dylanmtaylor/linux-devops-workspace-setup/main/installed_flatpaks.txt) && sudo -E flatpak install "${INSTALL[@]}" -y
