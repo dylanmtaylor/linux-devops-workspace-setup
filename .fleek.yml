@@ -74,7 +74,6 @@ packages:
     - minikube
     - neofetch
     - neovim
-    - nerdfonts
     - nmap
     - nodejs
     - nomad
