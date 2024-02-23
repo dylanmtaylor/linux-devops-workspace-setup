@@ -34,221 +34,29 @@ then
     sudo systemctl restart docker
 fi
 
+# Install and configure Nix. This incorporates some workarounds because of being a domain user.
+export USER=`echo $USER|cut -d'@' -f1`
+export NIXPKGS_ALLOW_UNFREE=1
+export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
+if ! command -v nix-shell &> /dev/null
+then
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+fi
+
 # Enable Nix flakes and nix-command
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
-
-# Install and configure Nix. This incorporates some workarounds because of being a domain user.
-if ! command -v nix-shell &> /dev/null
-then
-sh <(curl -L https://nixos.org/nix/install) --daemon
-fi
 
 # Try to source the nix profile
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
 
-# These may need to run in a new shell
-nix-shell -p nix-info --run "nix-info -m"
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-sudo mkdir -p /nix/var/nix/profiles/per-user/$USERNAME/
-sudo chown "$(id -un)":"$(id -gn)" /nix/var/nix/profiles/per-user/$USERNAME/
-nix-channel --update
-
-# The following exports fix issues with running init if an existing home-manager configuration exists 
-export NIXPKGS_ALLOW_UNFREE=1
-export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
-nix-shell '<home-manager>' -A install
-home-manager init
+curl -L https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/.fleek.yml > $HOME/.fleek.yml
+nix run "https://getfleek.dev/latest.tar.gz" -- apply
 
 # Deal with the fact that Nix expects exactly "aarch64" for _all_ ARM64 systems
 SYSTEM_ARCH="$(uname -m)";
 if [[ $(echo $SYSTEM_ARCH | grep "arm") ]]; then SYSTEM_ARCH="aarch64"; fi
-
-# Write home-manager flake configuration
-cat <<EOF > $HOME/.config/home-manager/flake.nix
-{
-  description = "Dylan's Home Manager configuration";
-
-  inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
-
-  outputs = { nixpkgs, home-manager, ... }:
-    let
-      system = "$SYSTEM_ARCH-$(uname -s | tr '[A-Z]' '[a-z]')";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        config.allowUnsupportedSystem = true;
-      };
-
-    in {
-      homeConfigurations."$USERNAME" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-      };
-    };
-}
-EOF
-
-# Write config to ~/.config/home-manager/home.nix and build and switch.
-cat <<EOF > $HOME/.config/home-manager/home.nix
-{ config, pkgs, ... }:
-{
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-  home.username = "$(whoami)";
-  home.homeDirectory = "$HOME";
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "23.05";
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  home.packages = with pkgs; [
-    ansible
-    asciidoc
-    aws-nuke
-    aws-vault
-    awscli2
-    azure-cli
-    bfg-repo-cleaner
-    boundary
-    btop
-    buildah
-    bundix
-    cargo
-    certbot
-    chromedriver
-    cmake
-    consul
-    consul-template
-    curl
-    cyberchef
-    dconf2nix
-    dig
-    distrobox
-    dos2unix
-    dotnet-sdk_7
-    ffmpeg
-    fio
-    gawk
-    gcc
-    geckodriver
-    git
-    git-lfs
-    github-cli
-    glances
-    gnum4
-    gnumake
-    go
-    google-cloud-sdk
-    graphviz
-    harfbuzz
-    hub
-    htop
-    iftop
-    ioping
-    jd-gui
-    jq
-    kubectl
-    kubernetes-helm
-    kubetail
-    libtool
-    maven
-    meraki-cli
-    minikube
-    neofetch
-    neovim
-    nerdfonts
-    nmap
-    nodejs
-    nomad
-    nomad-autoscaler
-    opentofu
-    oracle-instantclient
-    p7zip
-    packer
-    pcre2
-    pngcrush
-    powershell
-    progress
-    pv
-    python311Full
-    python311Packages.beautifulsoup4
-    python311Packages.boto3
-    python311Packages.botocore
-    python311Packages.flask
-    python311Packages.meraki
-    python311Packages.pip
-    python311Packages.pipx
-    python311Packages.pytz
-    python311Packages.requests
-    python311Packages.selenium
-    python311Packages.virtualenv
-    rar
-    rclone
-    restic
-    ruby
-    scalr-cli
-    selenium-server-standalone
-    shellcheck
-    skopeo
-    speedtest-cli
-    ssm-session-manager-plugin
-    starship
-    tcpdump
-    temurin-bin
-    terracognita
-    terraform
-    terraform-docs
-    terraform-ls
-    terraformer
-    texlive.combined.scheme-tetex
-    tfsec
-    tldr
-    topgrade
-    tree
-    unar
-    unzip
-    vagrant
-    vault
-    vim
-    waypoint
-    wget
-    whois
-    yarn
-    yq
-    zsh
-  ];
-}
-EOF
-
-# Patch out incompatible packages on aarch64
-if [[ $(uname -m) == "aarch64" ]]; then
-  sed -i '/chromedriver/d' $HOME/.config/home-manager/home.nix
-  sed -i '/rar/d' $HOME/.config/home-manager/home.nix
-fi
-
-home-manager switch
 
 # Topgrade configuration
 mkdir -p $HOME/.config/ # probably already there but just in case
