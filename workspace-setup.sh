@@ -55,9 +55,9 @@ source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
 # Need to initialize Fleek. This config gets blown away but can't skip this step.
 [ ! -f "$HOME/.local/share/fleek/.fleek.yml" ] && nix run "https://getfleek.dev/latest.tar.gz" -- init
 
-curl -L https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/.fleek.yml > $HOME/.fleek.yml
-sed -i "s/dylantaylor-pc/$(hostname)/g" $HOME/.fleek.yml
-sed -i "s/username: dylan/username: $USER/g" $HOME/.fleek.yml
+curl -L https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/.fleek.yml > $HOME/.local/share/fleek/.fleek.yml
+sed -i "s/dylantaylor-pc/$(hostname)/g" $HOME/.local/share/fleek/.fleek.yml
+sed -i "s/username: dylan/username: $USER/g" $HOME/.local/share/fleek/.fleek.yml
 nix run "https://getfleek.dev/latest.tar.gz" -- apply
 
 # Topgrade configuration
