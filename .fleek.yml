@@ -23,7 +23,6 @@ packages:
     - aws-nuke
     - aws-vault
     - awscli2
-    - azure-cli
     - bfg-repo-cleaner
     - boundary
     - btop
@@ -119,7 +118,6 @@ packages:
     - terraform-docs
     - terraform-ls
     - terraformer
-    - texlive.combined.scheme-tetex
     - tfsec
     - tldr
     - topgrade
