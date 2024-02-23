@@ -14,15 +14,11 @@ The script performs the following functions:
     * Snaps are terrible compared to Flatpak and native packages from a performance standpoint.
     * I like having up to date software and don't care to be stuck with an LTS release.
 * Installs Podman and registry configuration for that. Podman has proven to be a bit finicky on WorkSpaces, but it mostly works.
-* Adds the Chef repository in case in the future I want to use Chef Workstation.
-* Installs and configures Nix and home-manager for declarative package/home management
-* Writes a copy of my `home.nix` file and runs `home-manager switch` to evaluate and apply it.
+* Installs and configures Nix and home-manager using Fleek for declarative package/home management
+* Writes a copy of my `.fleek.yaml` file and runs `fleek apply` to evaluate and apply it.
 * Installs a handful of GNOME Extensions I like to have:
     * Dash to Panel
     * Alphabetical App Grid
     * Arc Menu
-    * Caffeine
-* Installs numerous GUI applications via snap/flatpak depending on my preference and official-status of the source.
-    * I generally try to use flatpak over snap but some snaps have official sources that are better maintained. 
-* Converts the Oracle instant client tooling from an RPM to a format that can be installed on Ubuntu and then installs it
+* Installs numerous GUI applications via flatpak by iterating over the lines of the installed_packages.txt file.
 * Alphabetizes the app grid.
