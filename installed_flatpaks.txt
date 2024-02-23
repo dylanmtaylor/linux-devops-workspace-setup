@@ -31,3 +31,4 @@ org.onlyoffice.desktopeditors
 org.remmina.Remmina
 org.standardnotes.standardnotes
 org.tenacityaudio.Tenacity
+org.wireshark.Wireshark
