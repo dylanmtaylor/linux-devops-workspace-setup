@@ -3,6 +3,6 @@ curl -L https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-works
 sed -i "s/dylantaylor-pc/$(hostname)/g" $HOME/.local/share/fleek/.fleek.yml
 sed -i "s/username: dylan/username: $USER/g" $HOME/.local/share/fleek/.fleek.yml
 rm $HOME/.fleek.yml 
-ln -s $HOME/.local/share/fleek/.fleek.yml $HOME/.fleek.yaml
+ln -s $HOME/.local/share/fleek/.fleek.yml $HOME/.fleek.yml
 nix run "https://getfleek.dev/latest.tar.gz" -- update
 nix run "https://getfleek.dev/latest.tar.gz" -- apply
