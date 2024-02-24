@@ -1,5 +1,6 @@
 com.axosoft.GitKraken
 com.getpostman.Postman
+com.github.finefindus.eyedropper
 com.github.marhkb.Pods
 com.github.PintaProject.Pinta
 com.github.tchx84.Flatseal
@@ -11,10 +12,12 @@ com.usebottles.bottles
 io.dbeaver.DBeaverCommunity
 io.github.celluloid_player.Celluloid
 io.github.fabrialberio.pinapp
+io.github.fastrizwaan.WineZGUI
 io.github.flattool.Warehouse
 io.github.peazip.PeaZip
 io.missioncenter.MissionCenter
 io.podman_desktop.PodmanDesktop
+it.mijorus.gearlever
 org.eclipse.Java
 org.filezillaproject.Filezilla
 org.gimp.GIMP
