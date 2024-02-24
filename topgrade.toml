@@ -2,7 +2,7 @@
 #assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["gcloud", "home-manager", "toolbx", ".NET"]
+disable = ["gcloud", "home_manager", "toolbx", "dotnet"]
 
 # Ignore failures for these steps
 ignore_failures = ["tldr", "containers"]
