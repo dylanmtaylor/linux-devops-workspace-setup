@@ -57,18 +57,11 @@ if ! command -v nix &> /dev/null || ! command -v fleek &> /dev/null; then
     # Initialize Fleek
     [ ! -f "$HOME/.local/share/fleek/.fleek.yml" ] && nix run "https://getfleek.dev/latest.tar.gz" -- init
     
-    # Update Fleek configuration
-    curl -L https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/.fleek.yml > $HOME/.local/share/fleek/.fleek.yml
-    sed -i "s/dylantaylor-pc/$(hostname)/g" $HOME/.local/share/fleek/.fleek.yml
-    sed -i "s/username: dylan/username: $USER/g" $HOME/.local/share/fleek/.fleek.yml
-    nix run "https://getfleek.dev/latest.tar.gz" -- apply
+    # Update Fleek configuration and apply
+    curl https://raw.githubusercontent.com/dylanmtaylor/linux-devops-workspace-setup/main/update-fleek-config.sh | bash
 else
-    # Update Fleek configuration then run fleek update and fleek apply
-    curl -L https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/.fleek.yml > $HOME/.local/share/fleek/.fleek.yml
-    sed -i "s/dylantaylor-pc/$(hostname)/g" $HOME/.local/share/fleek/.fleek.yml
-    sed -i "s/username: dylan/username: $USER/g" $HOME/.local/share/fleek/.fleek.yml
-    fleek update
-    fleek apply
+    # Update Fleek configuration and apply
+    curl https://raw.githubusercontent.com/dylanmtaylor/linux-devops-workspace-setup/main/update-fleek-config.sh | bash
 fi
 
 # Topgrade configuration
