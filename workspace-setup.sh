@@ -64,6 +64,9 @@ else
     curl https://raw.githubusercontent.com/dylanmtaylor/linux-devops-workspace-setup/main/update-fleek-config.sh | bash
 fi
 
+# Install Terraform v1.5.7 via Nix
+nix-env -iA terraform -f https://github.com/NixOS/nixpkgs/archive/4ab8a3de296914f3b631121e9ce3884f1d34e1e5.tar.gz
+
 # Topgrade configuration
 mkdir -p $HOME/.config/ # probably already there but just in case
 curl -Ls https://raw.githubusercontent.com/dylanmtaylor/amazon-linux-devops-workspace-setup/main/topgrade.toml > $HOME/.config/topgrade.toml
