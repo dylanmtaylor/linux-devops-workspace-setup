@@ -101,7 +101,6 @@ packages:
     - tcpdump
     - temurin-bin
     - terracognita
-    - terraform
     - terraform-docs
     - terraform-ls
     - terraformer
